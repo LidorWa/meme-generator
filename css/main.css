@@ -19,7 +19,7 @@ canvas{
     margin: auto;
     background-color: white;
     width: 85vw;
-    height: 30vh;
+    height: 50vh;
 
 
 }
@@ -28,4 +28,8 @@ canvas{
     background-color: brown;
     width: 90vw;
     height: 60vh;
+}
+
+.controller-box{
+    text-align: center;
 }
