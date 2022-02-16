@@ -25,6 +25,7 @@ canvas{
 }
 
 .canvas-container{
+    display: none;
     background-color: brown;
     width: 90vw;
     height: 60vh;
@@ -33,3 +34,7 @@ canvas{
 .controller-box{
     text-align: center;
 }
+
+
+
+/* currently working on mobile - up to 500px. media query above that to support other platforms */

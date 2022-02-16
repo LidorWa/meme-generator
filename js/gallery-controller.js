@@ -24,6 +24,7 @@ function galleryMouseListener(){
     elImgs.forEach(elImg => elImg.addEventListener('click', (event) => {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
         document.querySelector('.grid-container').style.display = 'none';
+        document.querySelector('.canvas-container').style.display = 'block';
     }));
 }
 
