@@ -10,7 +10,7 @@ function renderGallery(){
     var images = sendImgsToDom();
 
     images.forEach(img => {
-        strHtml +=`<article class="items item${img.id}"><img src="../assets/images/${img.id}.jpg"></article>`
+        strHtml +=`<article class="items item${img.id}"><img src="assets/images/${img.id}.jpg"></article>`
     });
     console.log(strHtml);
     elGallery.innerHTML = strHtml;
