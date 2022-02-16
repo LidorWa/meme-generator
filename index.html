@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,42 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Meme Generator</title>
 </head>
-<body onload="init()">
 
-    <h1> Meme generator</h1>
+<body onload="init()">
+    <header class="header"></header>
+    <img src="assets/images/LOGO.png">
 
 
     <section class="canvas-container">
-        <canvas>
+        <canvas id="meme-canvas">
 
         </canvas>
+        <div class="controller-box">
+            <input class="text" placeholder="Text line 1"><br>
+            <!-- <button class="move-line-down">↧</button>
+            <button class="move-line-up">↥</button> -->  <!-- IN DESKTOP MODE!-->
+            
+            <button class="switch-text-line">⇅</button>
+            <button class="add-text-line">+</button>
+            <button class="delete-text-line">🗑</button><br>
+            <button class="increase-font-size">A+</button>
+            <button class="decrease-font-size">A-</button>
+            <button class="align-text-left">align left</button>
+            <button class="align-text-center">align center</button>
+            <button class="align-text-right">align right</button><br>
+            <button class="change-font-family">IMPACT</button>
+            <button class="change-stroke-color">S</button>
+            <button class="change-fill-color">color palete</button><br>
+            <!-- stickers! -->
+            <button class="share-canvas">Share!</button>
+            <button class="download-canvas">Download meme!</button>
+        </div>
     </section>
 
 
     <section class="grid-container">
     </section>
-    
+
     <script src="js/utils.js"></script>
     <script src="js/gallery-service.js"></script>
     <script src="js/gallery-controller.js"></script>
@@ -30,4 +52,5 @@
     <script src="js/storage-service.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

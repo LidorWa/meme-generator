@@ -5,6 +5,8 @@
 
 // let gKeywordSearchCountMap = {'funny': 12, 'cat':16, 'baby': 2}  ---------> will be used in the bonuses
 
+let gCanvas;
+let gCtx;
 
 
 let gMeme = {
@@ -23,4 +25,9 @@ let gMeme = {
 function init(){
     console.log('startup');
     renderGallery();
+    galleryMouseListener();
+    gCanvas = document.getElementById('meme-canvas');
+    gCtx = gCanvas.getContext('2d');
+
+
 }

@@ -13,3 +13,19 @@ img{
     width: 35vw;
     margin: 3px;
 }
+
+canvas{
+    display: block;
+    margin: auto;
+    background-color: white;
+    width: 85vw;
+    height: 30vh;
+
+
+}
+
+.canvas-container{
+    background-color: brown;
+    width: 90vw;
+    height: 60vh;
+}

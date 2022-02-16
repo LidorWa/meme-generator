@@ -4,6 +4,8 @@
 
 
 
+
+
 function renderGallery(){
     let strHtml = '';
     let elGallery = document.querySelector('.grid-container');
@@ -14,5 +16,16 @@ function renderGallery(){
     });
     console.log(strHtml);
     elGallery.innerHTML = strHtml;
+}
+
+function galleryMouseListener(){
+    let elImg = document.querySelector('img');
+    elImg.addEventListener('click', onGalleryImgClick);
+}
+
+function onGalleryImgClick(ev){
+    var targetElement = ev.target;
+    console.log(ev)
+    console.log(targetElement);
 }
 
