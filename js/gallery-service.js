@@ -25,6 +25,5 @@ function createImages(){
 
 
 function sendImgsToDom(){
-    console.log(gImgs)
     return gImgs;
 }
