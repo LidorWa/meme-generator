@@ -5,10 +5,10 @@
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 img{
-    width: 40vw;
-    margin: 5px;
+    width: 35vw;
+    margin: 3px;
 }
