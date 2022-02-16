@@ -17,7 +17,7 @@ function renderGallery(){
 
 
 
-function galleryMouseListener(){
+function ongalleryImgClick(){
     let elImgs = document.querySelectorAll('.galleryImage');
     
 

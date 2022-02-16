@@ -25,7 +25,7 @@ let gMeme = {
 function init(){
     console.log('startup');
     renderGallery();
-    galleryMouseListener();
+    ongalleryImgClick();
     gCanvas = document.getElementById('meme-canvas');
     gCtx = gCanvas.getContext('2d');
 

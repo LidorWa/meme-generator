@@ -9,7 +9,16 @@
     text-align: center;
 }
 
-img{
+.grid-container img{
+    width: 35vw;
+    margin: 3px;
+}
+
+.grid-container img:hover{
+    cursor: zoom-in;
+}
+
+.logo {
     width: 35vw;
     margin: 3px;
 }
@@ -20,6 +29,7 @@ canvas{
     background-color: white;
     width: 85vw;
     height: 50vh;
+    margin-bottom: 1em;
 
 
 }
@@ -28,11 +38,21 @@ canvas{
     display: none;
     background-color: brown;
     width: 90vw;
-    height: 60vh;
+    height: 80vh;
+    
 }
 
 .controller-box{
     text-align: center;
+    
+}
+
+.controller {
+    margin: 0.2em;
+}
+
+.controller button{
+    border-radius: 15px;
 }
 
 

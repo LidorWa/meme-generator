@@ -11,7 +11,7 @@
 
 <body onload="init()">
     <header class="header"></header>
-    <img src="assets/images/LOGO.png">
+    <img src="assets/images/LOGO.png" class="logo">
     <span class="hamburger-symbol">☰</span>
     
 
@@ -21,24 +21,24 @@
 
         </canvas>
         <div class="controller-box">
-            <input class="text" placeholder="Text line 1"><br>
+            <input class="controller" id="meme-text" placeholder="Text line 1"><br>
             <!-- <button class="move-line-down">↧</button>
             <button class="move-line-up">↥</button> -->  <!-- IN DESKTOP MODE!-->
             
-            <button class="switch-text-line">⇅</button>
-            <button class="add-text-line">+</button>
-            <button class="delete-text-line">🗑</button><br>
-            <button class="increase-font-size">A+</button>
-            <button class="decrease-font-size">A-</button>
-            <button class="align-text-left">align left</button>
-            <button class="align-text-center">align center</button>
-            <button class="align-text-right">align right</button><br>
-            <button class="change-font-family">IMPACT</button>
-            <button class="change-stroke-color">S</button>
-            <button class="change-fill-color">color palete</button><br>
+            <button class="controller" id="switch-text-line"><img src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
+            <button class="controller" id="add-text-line"><img src="assets/controller-symbols/add/add.jpg"></button>
+            <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
+            <button class="controller" id="increase-font-size"><img src="assets/controller-symbols/increase-font/increase font - icon.jpg"></button>
+            <button class="controller" id="decrease-font-size"><img src="assets/controller-symbols//decrease-font/decrease font - icon.jpg"></button>
+            <button class="controller" id="align-text-left"><img src="assets/controller-symbols/align-to-left/align-to-left.jpg"></button>
+            <button class="controller" id="align-text-center"><img src="assets/controller-symbols/align-to-center/center-text-alignment.jpg"></button>
+            <button class="controller" id="align-text-right"><img src="assets/controller-symbols/align-to-right/align-to-right.jpg"></button><br>
+            <button class="controller" id="change-font-family">IMPACT</button>
+            <button class="controller" id="change-stroke-color">S</button>
+            <button class="controller" id="change-fill-color"><img src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button><br>
             <!-- stickers! -->
-            <button class="share-canvas">Share!</button>
-            <button class="download-canvas">Download meme!</button>
+            <button class="controller" id="share-canvas">Share!</button>
+            <button class="controller" id="download-canvas">Download meme!</button>
         </div>
     </section>
 
