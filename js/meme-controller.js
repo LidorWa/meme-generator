@@ -4,15 +4,13 @@
 
 
 
-// rendercanvas -
-
 function drawText(text, x, y) {
     // gCtx.strokeRect(gCanvas.width-gCanvas)
     gCtx.lineWidth = 0.5;
     gCtx.strokeStyle = 'black';
     gCtx.fillStyle = 'white';
-    // gCtx.font = '16px IMPACT'
-    gCtx.textAlign = 'end';
+
+    // gCtx.textAlign = 'end';
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
   }
