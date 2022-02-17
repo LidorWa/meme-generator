@@ -9,25 +9,16 @@ let gCanvas;
 let gCtx;
 
 
-let gMeme = {
-    selectedImgId: 5,
-    selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'I sometimes eat Falafel',
-            size: 20,
-            align: 'left',
-            color: 'red'
-        }
-    ]
-}
+
 
 function init(){
-    console.log('startup');
     renderGallery();
-    ongalleryImgClick();
     gCanvas = document.getElementById('meme-canvas');
     gCtx = gCanvas.getContext('2d');
+    // ongalleryImgClick();
+    // onMemeTextType()
+    // renderCanvas();
+    addEventListeners();
 
 
 }

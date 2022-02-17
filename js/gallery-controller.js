@@ -17,14 +17,21 @@ function renderGallery(){
 
 
 
-function ongalleryImgClick(){
+function addImageClickEventLisetner(){
     let elImgs = document.querySelectorAll('.galleryImage');
+    let meme;
     
-
-    elImgs.forEach(elImg => elImg.addEventListener('click', (event) => {
-        gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
+    elImgs.forEach(elImg => elImg.addEventListener('click', () => {
+        meme = getMemeFromMemeService();
+        meme.selectedImgId = elImg.id;
+        renderCanvas();
+        // gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
         document.querySelector('.grid-container').style.display = 'none';
         document.querySelector('.canvas-container').style.display = 'block';
     }));
+}
+
+function getMemeFromMemeService(){
+    return getMemeFromService();
 }
 

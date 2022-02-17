@@ -2,10 +2,14 @@
     box-sizing: border-box;
 }
 
+.nav-container ul{
+    display: none;
+}
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    width: 100vw;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 2fr));
     text-align: center;
 }
 
@@ -22,6 +26,13 @@
     width: 35vw;
     margin: 3px;
 }
+.canvas-container{
+    display: none;
+    background-color: brown;
+    width: 90vw;
+    height: 80vh;
+    
+}
 
 canvas{
     display: block;
@@ -34,13 +45,6 @@ canvas{
 
 }
 
-.canvas-container{
-    display: none;
-    background-color: brown;
-    width: 90vw;
-    height: 80vh;
-    
-}
 
 .controller-box{
     text-align: center;
@@ -55,6 +59,36 @@ canvas{
     border-radius: 15px;
 }
 
+@media (min-width: 500px){
+    body{
+        background-color: yellow;
+    }
+    .grid-container{
+        width: 100vw;
+        height: 90vh;
+
+    }
+    .grid-container img{
+        margin: 10px;
+        width: 20vw;
+    }
+    .header {
+        display: flex;
+    }
+    .hamburger-symbol {
+        display: none;
+    }
+    .logo-container{
+        justify-self: flex-start;
+    }
+    .nav-container {
+        justify-self: flex-end;
+    }
+    .nav-container ul{
+        display: inline-block;
+        list-style: none;
+    }
+}
 
 
 /* currently working on mobile - up to 500px. media query above that to support other platforms */
