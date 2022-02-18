@@ -10,8 +10,18 @@ let gMeme = {
             size: 16,
             align: 'left',
             fillColor: 'white',
-            strokeColor: 'black'
-        }
+            strokeColor: 'black',
+            xPos: 0,
+            yPos: 20
+        },         {
+          txt: '',
+          size: 16,
+          align: 'left',
+          fillColor: 'white',
+          strokeColor: 'black',
+          xPos: 0,
+          yPos: 0
+      }
     ]
   }
 

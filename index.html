@@ -15,68 +15,74 @@
                 <div class="nav-container">
                         <span class="hamburger-symbol">☰</span>
                         <ul>
-                                <li>Gallery</li>
+                                <li class="back-to-gallery">Gallery</li>
                                 <li>Memes</li>
                                 <li>About</li>
                         </ul>
                 </div>
         </header>
-
-
-
-
+        
         <section class="canvas-container">
-                <canvas id="meme-canvas">
-                        My HTML5 canvas tag doesn't support your primitive $55 browser
-                </canvas>
-                <div class="controller-box" style="display: absolute;">
+                <div class="canvas-div"><canvas id="meme-canvas">
+                                My HTML5 canvas tag doesn't support your primitive $55 browser
+                        </canvas></div>
+                <div class="controller-box">
                         <input class="controller" id="meme-text" placeholder="Text line 1"><br>
-                        <button class="move-line-down desktop-btn"><img src="assets/controller-symbols/down-double/linedown.png"></button>
-                        <button class="move-line-up desktop-btn"><img src="assets/controller-symbols/up-double/lineup.png"></button>
-                        <button class="controller" id="switch-text-line"><img
-                                        src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
-                        <button class="controller" id="add-text-line"><img
+
+                        <button class="move-line-down desktop-btn" title="Move line down!">
+                                <img src="assets/controller-symbols/down-double/linedown.png"></button>
+
+                        <button class="move-line-up desktop-btn" title="Move line up!">
+                                <img src="assets/controller-symbols/up-double/lineup.png"></button>
+
+                        <button class="controller" id="switch-text-line" title="Switch between lines!">
+                                <img src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
+
+                        <button class="controller" id="add-text-line" title="Add text line!"><img
                                         src="assets/controller-symbols/add/add.jpg"></button>
 
-                        <button class="controller" id="delete-text-line"><img
+                        <button class="controller" id="delete-text-line" title="Delete text line!"><img
                                         src="assets/controller-symbols/trash/trash.jpg"></button><br>
 
-                        <button class="controller" id="increase-font-size"><img
+                        <button class="controller" id="increase-font-size" title="Increase font size!"><img
                                         src="assets/controller-symbols/increase-font/increase font - icon.jpg"></button>
 
-                        <button class="controller" id="decrease-font-size"><img
+                        <button class="controller" id="decrease-font-size" title="Decrease font size!"><img
                                         src="assets/controller-symbols//decrease-font/decrease font - icon.jpg"></button>
 
-                        <button class="controller" id="align-text-left"><img
+                        <button class="controller" id="align-text-left" title="Align text left!"><img
                                         src="assets/controller-symbols/align-to-left/align-to-left.jpg"></button>
 
-                        <button class="controller" id="align-text-center"><img
+                        <button class="controller" id="align-text-center" title="Align text center!"><img
                                         src="assets/controller-symbols/align-to-center/center-text-alignment.jpg"></button>
 
-                        <button class="controller" id="align-text-right"><img
+                        <button class="controller" id="align-text-right" title="Align text right!"><img
                                         src="assets/controller-symbols/align-to-right/align-to-right.jpg"></button><br>
 
-                        <button class="controller" id="change-font-family">IMPACT</button>
+                        <button class="controller" id="change-font-family" title="Change font!">IMPACT</button>
 
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-stroke-color">S</button>
-                                <input class="fill-and-stroke-input stroke-color" type="color" value="#ff0000" />
+                                <input class="fill-and-stroke-input stroke-color" type="color" value="#ff0000"
+                                        title="Change text border color!" />
                         </div>
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-fill-color"><img
                                                 src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button>
-                                <input class="fill-and-stroke-input fill-color" type="color" value="#ff0000" />
+                                <input class="fill-and-stroke-input fill-color" type="color" value="#ff0000"
+                                        title="Change text color!" />
                         </div><br>
 
                         <!-- stickers! -->
-                        <button class="controller" id="share-canvas">Share!</button>
+                        <button class="controller" id="share-canvas" title="Share to facebook!">Share!</button>
 
-                        <button class="controller" id="download-canvas">Download meme!</button>
+                        <button class="controller" id="download-canvas" title="Download meme to your platform!">Download
+                                meme!</button>
 
                 </div>
         </section>
         <section class="search-image-bar">
-                <label for="filter-gallery">Search image for meme:</label>
+                <label for="filter-gallery">Search an image for meme:</label>
                 <input list="filter-gallery" id="filter-gallery" name="filter-gallery" />
 
                 <datalist id="search-gallery">
@@ -99,3 +105,7 @@
 </body>
 
 </html>
+
+
+
+<!-- TODO: add hamburger modal with gallery, memes and about and add functionality to it -->

@@ -5,6 +5,12 @@
 .nav-container ul{
     display: none;
 }
+.header {
+    display: flex;
+}
+.nav-container li,span:hover{
+    cursor: pointer;
+}
 
 .grid-container{
     display: grid;
@@ -25,16 +31,21 @@
 }
 
 .logo {
-    width: 35vw;
+    width: 20vw;
     margin: 3px;
 }
 
 .canvas-container{
     display: none;
+    flex-direction: column;
     background-color: brown;
     width: 90vw;
     height: 80vh;
     
+}
+
+.add-flex{
+    display: flex;
 }
 
 canvas{
@@ -44,13 +55,10 @@ canvas{
     width: 85vw;
     height: 50vh;
     margin-bottom: 1em;
-
-
 }
 
 .controller-box{
     text-align: center;
-    
 }
 
 .controller {
@@ -87,32 +95,51 @@ canvas{
     }
     .grid-container{
         width: 95vw;
-        height: 90vh;
+        height: 85vh;
         grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-        column-gap: 8%;
+        column-gap: 4%;
     }
     .grid-container img{
         margin: 10px;
         width: 80%;
     }
-    .header {
-        display: flex;
-    }
+
     .hamburger-symbol {
         display: none;
     }
     .logo-container{
         justify-self: flex-start;
     }
-    .nav-container {
-        justify-self: flex-end;
-    }
     .nav-container ul{
-        display: inline-block;
+        display: flex;
         list-style: none;
+
     }
     .desktop-btn{
         display: inline-block;
+    }
+
+    .canvas-container{
+        
+        flex-direction: row;
+        width: 100vw;
+
+    }
+    .canvas-div{
+        width: 45vw;
+        height: 75vh;
+    }
+    canvas {
+        width: 45vw;
+        height: 75vh;
+   
+    }
+
+    .controller-box{
+        align-self: center;
+        justify-self: center;
+        height: 75vh;
+        width: 55vw;
     }
 }
 
