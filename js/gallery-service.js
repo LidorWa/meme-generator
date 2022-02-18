@@ -17,7 +17,7 @@ function createImage(keyword, fullImageName){
 }
 
 function createImages(){
-    gImgs.push(createImage(['politics','trump','hot blonde'], '1.jpg'));
+    gImgs.push(createImage(['politics','usa','america','trump','president','hot blonde'], '1.jpg'));
     gImgs.push(createImage(['animal','dog','puppie', 'cute'], '2.jpg'));
     gImgs.push(createImage(['animal','dog','baby','puppie', 'cute'], '3.jpg'));
     gImgs.push(createImage(['animal','cat','cute'], '4.jpg'));
@@ -26,7 +26,16 @@ function createImages(){
     gImgs.push(createImage(['baby','shock'], '7.jpg'));
     gImgs.push(createImage(['hat','charlie','tell me more', 'interested'], '8.jpg'));
     gImgs.push(createImage(['baby','devious','manipulativ', 'sneakie'], '9.jpg'));
-    gImgs.push(createImage(['politics','obama','laugh'], '10.jpg'));
+    gImgs.push(createImage(['politics','obama','president','usa','america','laugh'], '10.jpg'));
+    gImgs.push(createImage(['love','man','box'], '11.jpg'));
+    gImgs.push(createImage(['man','television','tv','point','haim', 'hecht'], '12.jpg'));
+    gImgs.push(createImage(['man','glass','movie','salute', 'leonardo','dicaprio'], '13.jpg'));
+    gImgs.push(createImage(['man','movie','matrix','morpheus','laurence', 'fishburne'], '14.jpg'));
+    gImgs.push(createImage(['man','movie','lord','rings','boromir','sean','bean'], '15.jpg'));
+    gImgs.push(createImage(['man','movie','star','trek','sir','patrick','stewart', 'jean', 'luc', 'picard'], '16.jpg'));
+    gImgs.push(createImage(['politics','russia', 'vladimir','putin','kgb','president'], '17.jpg'));
+    gImgs.push(createImage(['toys','movie','toy','story','baz','lightyear',
+    'tim','allen','sherrif','woodie','tom','hanks', 'vladimir','putin','kgb','president'], '18.jpg'));
 }
 
 
@@ -45,6 +54,10 @@ function getImgFromGallery(memeImgId){
 function getImgSrcById(id) {
     return gImgs.find(img => Number(id) === img.id).url;
 }
+
+// function getKeywords(keyword){
+
+// }
 
 
 // TODO: what happens if png image with transparent background is used.

@@ -15,11 +15,11 @@ function drawText(text, x, y) {
   //   gCanvas.height / memeFontSize + 2);
      
     gCtx.lineWidth = 0.5;
-    gCtx.strokeStyle = `${memeTextStroke}`;
-    gCtx.fillStyle = `${memeTextFill}`;
 
-    // gCtx.textAlign = 'end';
+    gCtx.fillStyle = `${memeTextFill}`;
     gCtx.fillText(text, x, y);
+
+    gCtx.strokeStyle = `${memeTextStroke}`;
     gCtx.strokeText(text, x, y);
   }
 
@@ -71,6 +71,7 @@ function drawText(text, x, y) {
     let elAlignLeftBtn = document.getElementById('align-text-left');
     elAlignLeftBtn.addEventListener('click', ()=>{
       memeLineAlign.lines[0].align = 'left';
+      renderCanvas();
     })
   }
   function addTextAlignRightEventListener(){
@@ -78,6 +79,7 @@ function drawText(text, x, y) {
     let elAlignLeftBtn = document.getElementById('align-text-right');
     elAlignLeftBtn.addEventListener('click', ()=>{
       memeLineAlign.lines[0].align = 'right';
+      renderCanvas();
     })
   }
 
@@ -86,6 +88,7 @@ function drawText(text, x, y) {
     let elAlignLeftBtn = document.getElementById('align-text-center');
     elAlignLeftBtn.addEventListener('click', ()=>{
       memeLineAlign.lines[0].align = 'center';
+      renderCanvas();
     })
   }
 
@@ -142,7 +145,7 @@ function onGetImgFromGallery(memeId){
   return getImgFromGallery(memeId);
 }
 
-function addEventListeners() {
+function addMemeEventListeners() {
   addImageClickEventLisetner();
   addTextTypeEventListener();
   addTextIncreaseFontSizeEventListener();
@@ -163,8 +166,6 @@ function addEventListeners() {
   // <button class="controller" id="add-text-line"><img src="assets/controller-symbols/add/add.jpg"></button>
   // <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
   // <button class="controller" id="change-font-family">IMPACT</button>
-  // <button class="controller" id="change-stroke-color">S</button>
-  // <button class="controller" id="change-fill-color"><img src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button><br>
   // <!-- stickers! -->
   // <button class="controller" id="share-canvas">Share!</button>
   // <button class="controller" id="download-canvas">Download meme!</button>
@@ -174,7 +175,8 @@ function addEventListeners() {
   // TODO: handle switching text line
   // TODO: handle delete text line
   // TODO: handle change font
-  // TODO: handle change stroke color
-  // TODO: handle change fill color
   // TODO: handle share canvas
   // TODO: handle download canvas
+
+  // TODO: fix the bug in which after typing a text to the meme and then changing alignment, 
+  // the text will at first appear outside the canvas, and then, after extra typing, will centerize normally

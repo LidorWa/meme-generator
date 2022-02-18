@@ -18,7 +18,7 @@ function init(){
     // ongalleryImgClick();
     // onMemeTextType()
     // renderCanvas();
-    addEventListeners();
+    addMemeEventListeners();
 
 
 }

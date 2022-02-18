@@ -8,14 +8,16 @@
 
 .grid-container{
     display: grid;
-    width: 100vw;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 2fr));
+    width: 98vw;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 2fr));
     text-align: center;
+    
 }
 
 .grid-container img{
     width: 35vw;
     margin: 3px;
+    border-radius: 15px;
 }
 
 .grid-container img:hover{
@@ -26,6 +28,7 @@
     width: 35vw;
     margin: 3px;
 }
+
 .canvas-container{
     display: none;
     background-color: brown;
@@ -44,7 +47,6 @@ canvas{
 
 
 }
-
 
 .controller-box{
     text-align: center;
@@ -72,18 +74,23 @@ canvas{
       width:100%;
 }
 
+.gallery-page label:hover{
+    cursor: pointer;
+}
+
 @media (min-width: 500px){
     body{
         background-color: yellow;
     }
     .grid-container{
-        width: 100vw;
+        width: 95vw;
         height: 90vh;
-
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        column-gap: 8%;
     }
     .grid-container img{
         margin: 10px;
-        width: 20vw;
+        width: 80%;
     }
     .header {
         display: flex;
@@ -103,5 +110,4 @@ canvas{
     }
 }
 
-
-/* currently working on mobile - up to 500px. media query above that to support other platforms */
+/* TODO: to check if i would like to cancel overflow or not */

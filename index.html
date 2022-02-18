@@ -27,7 +27,7 @@
 
         <section class="canvas-container">
                 <canvas id="meme-canvas">
-
+                        My HTML5 canvas tag doesn't support your primitive $55 browser
                 </canvas>
                 <div class="controller-box">
                         <input class="controller" id="meme-text" placeholder="Text line 1"><br>
@@ -62,12 +62,12 @@
 
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-stroke-color">S</button>
-                                <input class="fill-and-stroke-input stroke-color" type="color" value="#ff0000"/>
+                                <input class="fill-and-stroke-input stroke-color" type="color" value="#ff0000" />
                         </div>
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-fill-color"><img
                                                 src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button>
-                                <input class="fill-and-stroke-input fill-color" type="color" value="#ff0000"/>
+                                <input class="fill-and-stroke-input fill-color" type="color" value="#ff0000" />
                         </div><br>
 
                         <!-- stickers! -->
@@ -78,8 +78,15 @@
                 </div>
         </section>
 
+        <section class="gallery-page">
+                <label for="filter-gallery">Search image for meme:</label>
+                <input list="filter-gallery" id="filter-gallery" name="filter-gallery" />
 
-        <section class="grid-container">
+                <datalist id="search-gallery">
+
+                </datalist>
+                <section class="grid-container">
+                </section>
         </section>
 
         <script src="js/utils.js"></script>

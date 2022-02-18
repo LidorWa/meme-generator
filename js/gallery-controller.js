@@ -25,7 +25,6 @@ function addImageClickEventLisetner(){
         meme = getMemeFromMemeService();
         meme.selectedImgId = elImg.id;
         renderCanvas();
-        // gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
         document.querySelector('.grid-container').style.display = 'none';
         document.querySelector('.canvas-container').style.display = 'block';
     }));
@@ -35,3 +34,16 @@ function getMemeFromMemeService(){
     return getMemeFromService();
 }
 
+// function addGallerySearchInputEventListener(){
+//     let elSearchInput = document.getElementById('search-gallery');
+
+// }
+
+// function getKeywordsFromService(keyword){
+//     getKeywords(keyword);
+// }
+
+
+// function addGalleryEventListeners(){
+//     addGallerySearchInputEventListener();
+// }
