@@ -11,19 +11,22 @@ let gMeme = {
             align: 'left',
             fillColor: 'white',
             strokeColor: 'black',
-            xPos: 0,
-            yPos: 20
+            font: 'IMPACT',
+            posX: 1,
+            posY: 1
         },         {
           txt: '',
           size: 16,
           align: 'left',
           fillColor: 'white',
           strokeColor: 'black',
-          xPos: 0,
-          yPos: 0
+          font: 'IMPACT',
+          posX: 1,
+          posY: 0
       }
     ]
   }
+
 
 function getMemeFromService(){
     return gMeme;

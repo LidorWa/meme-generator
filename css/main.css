@@ -55,6 +55,7 @@ canvas{
     width: 85vw;
     height: 50vh;
     margin-bottom: 1em;
+
 }
 
 .controller-box{
@@ -131,7 +132,7 @@ canvas{
     }
     canvas {
         width: 45vw;
-        height: 75vh;
+        height: 45vh;
    
     }
 

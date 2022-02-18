@@ -3,6 +3,22 @@
 // will handle the meme's section DOM
 
 
+
+
+function renderCanvas(){
+  // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+  let meme = getMemeFromService();
+
+  const imgSrc = getImgSrcById(meme.selectedImgId);
+
+  const image = new Image(gCanvas.width, gCanvas.height);
+  image.src = imgSrc;
+  
+  gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
+  
+  checkTextAlign(meme);
+  }
+
 function drawText(text, x, y) {
   let meme = getMemeFromService();
   let line = meme.selectedLineIdx;
@@ -15,7 +31,7 @@ function drawText(text, x, y) {
   //   gCanvas.height / memeFontSize + 2);
      
     gCtx.lineWidth = 0.5;
-
+    gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
     gCtx.fillStyle = `${memeTextFill}`;
     gCtx.fillText(text, x, y);
 
@@ -25,103 +41,121 @@ function drawText(text, x, y) {
 
   function addTextTypeEventListener(){
     let elTextInput = document.getElementById('meme-text');
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
+
     elTextInput.addEventListener('input', (event) => {
 
       meme.lines[line].txt = event.target.value;
-      renderCanvas();
-    })
-  }
 
-  function addTextTypeEventListener(){
-    let elTextInput = document.getElementById('meme-text');
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-    elTextInput.addEventListener('input', (event) => {
-
-      meme.lines[line].txt = event.target.value;
       renderCanvas();
     })
   }
 
 
   function addTextIncreaseFontSizeEventListener (){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
+
     let elIncreaseBtn = document.getElementById('increase-font-size');
     
     elIncreaseBtn.addEventListener('click', () =>{
       meme.lines[line].size += 0.5;
-      gCtx.font = `${meme.lines[line].size}px sans-serif`;
+      gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
       document.getElementById("meme-text").focus();
+
       renderCanvas();
     });
   }
 
   function addTextDecreaseFontSizeEventListener (){
+
     let meme = getMemeFromService();
-    let elIncreaseBtn = document.getElementById('decrease-font-size');
     let line = meme.selectedLineIdx;
+
+    let elIncreaseBtn = document.getElementById('decrease-font-size');
+    
     elIncreaseBtn.addEventListener('click', () =>{
       meme.lines[line].size -= 0.5;
-      gCtx.font = `${meme.lines[line].size}px sans-serif`;
+      gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
+      document.getElementById("meme-text").focus();
+
       renderCanvas();
     });
   }
 
   function addTextAlignLeftEventListener(){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
+
     let elAlignLeftBtn = document.getElementById('align-text-left');
 
     elAlignLeftBtn.addEventListener('click', ()=>{
       meme.lines[line].align = 'left';
+      document.getElementById("meme-text").focus();
+
       renderCanvas();
     })
   }
   function addTextAlignRightEventListener(){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
+
     let elAlignLeftBtn = document.getElementById('align-text-right');
 
     elAlignLeftBtn.addEventListener('click', ()=>{
       meme.lines[line].align = 'right';
+      document.getElementById("meme-text").focus();
       renderCanvas();
     })
   }
 
   function addTextAlignCenterEventListener(){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
+
     let elAlignLeftBtn = document.getElementById('align-text-center');
 
     elAlignLeftBtn.addEventListener('click', ()=>{
       meme.lines[line].align = 'center';
+      document.getElementById("meme-text").focus();
       renderCanvas();
     })
   }
 
   function addStrokeColorEventListener(){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
-    let memeStrokeColor = meme.lines[line].strokeColor;
+
     let elStrokeColorInput = document.querySelector('.stroke-color');
+
     elStrokeColorInput.addEventListener('input', ()=>{
-      memeStrokeColor.lines[line].strokeColor = elStrokeColorInput.value;
-      gCtx.strokeStyle = `${memeStrokeColor.lines[line].strokeColor}`;
+      meme.lines[line].strokeColor = elStrokeColorInput.value;
+      gCtx.strokeStyle = `${meme.lines[line].strokeColor}`;
+      document.getElementById("meme-text").focus();
+
       renderCanvas();
     })
   }
 
   function addFillColorEventListener(){
+
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
-    let memeFillColor = meme.lines[line].fillColor;
+
     let elFillColorInput = document.querySelector('.fill-color');
+
     elFillColorInput.addEventListener('input', ()=>{
-      memeFillColor.lines[line].fillColor = elFillColorInput.value;
-      gCtx.fillStyle = `${memeFillColor.lines[line].fillColor}`;
+      meme.lines[line].fillColor = elFillColorInput.value;
+      gCtx.fillStyle = `${meme.lines[line].fillColor}`;
+      document.getElementById("meme-text").focus();
+
       renderCanvas();
     })
   }
@@ -156,28 +190,27 @@ function addBackToGalleryLinkEventListener(){
 }
 
 function addSwitchTextLineEventListener(){
-  let switchTextLineBtn = getElementById('add-text-line');
-  let meme = getMemeFromMemeService();
-  switchTextLineBtn.addEventListener('click', ()=>{
-   meme.selectedLineIdx += (meme.selectedLineIdx === meme.lines.length -1)?  0:1;
 
+  let meme = getMemeFromMemeService();
+  
+  let switchTextLineBtn = document.getElementById('switch-text-line');
+
+  switchTextLineBtn.addEventListener('click', ()=>{
+   meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length -1))?  0:+1;
+   let currLine = meme.selectedLineIdx;
+   
+   if (currLine === 0) meme.lines[0].posY = 1;
+   else if (currLine === 1) meme.lines[1].posY = gCanvas.height - 5;
+   else if (currLine === 2) meme.lines[2].posY = gCanvas.height / 2;
+   else if (currLine > 2) meme.lines[currLine].posY = gCanvas.height / 2 + meme.lines[meme.selectedLineIdx-1].size;
+   drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
+   document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`
+   renderCanvas();
+   
   })
 
 }
 
-function renderCanvas(){
-  // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-  let meme = getMemeFromService();
-
-  const imgSrc = getImgSrcById(meme.selectedImgId);
-
-  const image = new Image(gCanvas.width, gCanvas.height);
-  image.src = imgSrc;
-  
-  gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
-  
-  checkTextAlign(meme);
-  }
 
 function onGetImgFromGallery(memeId){
   return getImgFromGallery(memeId);
@@ -194,6 +227,7 @@ function addMemeEventListeners() {
   addStrokeColorEventListener();
   addFillColorEventListener();
   addBackToGalleryLinkEventListener();
+  addSwitchTextLineEventListener();
 }
 
 
@@ -216,7 +250,24 @@ function addMemeEventListeners() {
   // TODO: handle change font
   // TODO: handle share canvas
   // TODO: handle download canvas
-  // TODO: add functionality to header links
+  // TODO: add functionality to header links (+ in hamburger)
+  
+  // TODO: when decrease font size, it also changes it's y axis toward the start. 
+  // to make sure increasing the font size afterwards doesnt take the text out of boundaries
 
-  // TODO: fix the bug in which after typing a text to the meme and then changing alignment, 
-  // the text will at first appear outside the canvas, and then, after extra typing, will centerize normally
+  // TODO: fixing a bug - switching to the second line(the bottom one) in the switch lines function
+  // makes the initial text dissappear, and the the new text line doesnt appear
+
+
+  // TODO: to implement the following function - should fix the canvas getting disfigured when changing screen width.
+  // allso make sure it fixes height problems
+
+
+  // function resizeCanvas() {
+  // var elContainer = document.querySelector('.canvas-container');
+  // // Note: changing the canvas dimension this way clears the canvas
+  // gCanvas.width = elContainer.offsetWidth - 20
+  // // Unless needed, better keep height fixed.
+  // //   gCanvas.height = elContainer.offsetHeight
+// }
+
