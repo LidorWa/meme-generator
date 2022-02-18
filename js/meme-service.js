@@ -9,12 +9,12 @@ let gMeme = {
             txt: '',
             size: 16,
             align: 'left',
-            color: 'red'
+            fillColor: 'white',
+            strokeColor: 'black'
         }
     ]
   }
 
 function getMemeFromService(){
-    console.log('gMeme', gMeme);
     return gMeme;
   }

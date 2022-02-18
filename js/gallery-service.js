@@ -35,13 +35,10 @@ function sendImgsToDom(){
 }
 
 function getImgFromGallery(memeImgId){
-    console.log('memeImgId', memeImgId);
-
     let imgId = gImgs.findIndex((img) =>{ 
         return Number(memeImgId) === img.id
     });
 
-    console.log('imgId', imgId);
     return gImgs[imgId];
 }
 

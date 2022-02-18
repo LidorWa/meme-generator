@@ -59,6 +59,19 @@ canvas{
     border-radius: 15px;
 }
 
+.fill-and-stroke-div{
+    position:relative; 
+    display:inline-block
+}
+
+.fill-and-stroke-input{
+    opacity:0;
+     position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+}
+
 @media (min-width: 500px){
     body{
         background-color: yellow;

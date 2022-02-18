@@ -5,10 +5,18 @@
 
 
 function drawText(text, x, y) {
-    // gCtx.strokeRect(gCanvas.width-gCanvas)
+  let meme = getMemeFromService();
+  let memeTextStroke = meme.lines[0].strokeColor;
+  let memeTextFill = meme.lines[0].fillColor;
+
+  // gCtx.strokeStyle = 'white';
+  // gCtx.setLineDash([2,3]);
+  // gCtx.strokeRect(gCanvas.width-gCanvas.width, gCanvas.height-gCanvas.height, gCanvas.width,
+  //   gCanvas.height / memeFontSize + 2);
+     
     gCtx.lineWidth = 0.5;
-    gCtx.strokeStyle = 'black';
-    gCtx.fillStyle = 'white';
+    gCtx.strokeStyle = `${memeTextStroke}`;
+    gCtx.fillStyle = `${memeTextFill}`;
 
     // gCtx.textAlign = 'end';
     gCtx.fillText(text, x, y);
@@ -19,7 +27,6 @@ function drawText(text, x, y) {
     let elTextInput = document.getElementById('meme-text');
     let meme = getMemeFromService();
     elTextInput.addEventListener('input', (event) => {
-      console.log('meme', meme);
 
       meme.lines[0].txt = event.target.value;
       renderCanvas();
@@ -30,7 +37,6 @@ function drawText(text, x, y) {
     let elTextInput = document.getElementById('meme-text');
     let meme = getMemeFromService();
     elTextInput.addEventListener('input', (event) => {
-      console.log('meme', meme);
 
       meme.lines[0].txt = event.target.value;
       renderCanvas();
@@ -43,10 +49,7 @@ function drawText(text, x, y) {
     let elIncreaseBtn = document.getElementById('increase-font-size');
     
     elIncreaseBtn.addEventListener('click', () =>{
-      console.log('gCtx.font', gCtx.font);
       meme.lines[0].size += 0.5;
-      console.log('meme', meme);
-      console.log('meme.lines[0].size', meme.lines[0].size);
       gCtx.font = `${meme.lines[0].size}px sans-serif`;
       renderCanvas();
     });
@@ -57,13 +60,53 @@ function drawText(text, x, y) {
     let elIncreaseBtn = document.getElementById('decrease-font-size');
     
     elIncreaseBtn.addEventListener('click', () =>{
-      console.log('gCtx.font', gCtx.font);
       meme.lines[0].size -= 0.5;
-      console.log('meme', meme);
-      console.log('meme.lines[0].size', meme.lines[0].size);
       gCtx.font = `${meme.lines[0].size}px sans-serif`;
       renderCanvas();
     });
+  }
+
+  function addTextAlignLeftEventListener(){
+    let memeLineAlign = getMemeFromService();
+    let elAlignLeftBtn = document.getElementById('align-text-left');
+    elAlignLeftBtn.addEventListener('click', ()=>{
+      memeLineAlign.lines[0].align = 'left';
+    })
+  }
+  function addTextAlignRightEventListener(){
+    let memeLineAlign = getMemeFromService();
+    let elAlignLeftBtn = document.getElementById('align-text-right');
+    elAlignLeftBtn.addEventListener('click', ()=>{
+      memeLineAlign.lines[0].align = 'right';
+    })
+  }
+
+  function addTextAlignCenterEventListener(){
+    let memeLineAlign = getMemeFromService();
+    let elAlignLeftBtn = document.getElementById('align-text-center');
+    elAlignLeftBtn.addEventListener('click', ()=>{
+      memeLineAlign.lines[0].align = 'center';
+    })
+  }
+
+  function addStrokeColorEventListener(){
+    let memeStrokeColor = getMemeFromService();
+    let elStrokeColorInput = document.querySelector('.stroke-color');
+    elStrokeColorInput.addEventListener('input', ()=>{
+      memeStrokeColor.lines[0].strokeColor = elStrokeColorInput.value;
+      gCtx.strokeStyle = `${memeStrokeColor.lines[0].strokeColor}`;
+      renderCanvas();
+    })
+  }
+
+  function addFillColorEventListener(){
+    let memeFillColor = getMemeFromService();
+    let elFillColorInput = document.querySelector('.fill-color');
+    elFillColorInput.addEventListener('input', ()=>{
+      memeFillColor.lines[0].fillColor = elFillColorInput.value;
+      gCtx.fillStyle = `${memeFillColor.lines[0].fillColor}`;
+      renderCanvas();
+    })
   }
 
 function renderCanvas(){
@@ -71,18 +114,26 @@ function renderCanvas(){
   let meme = getMemeFromService();
 
   const imgSrc = getImgSrcById(meme.selectedImgId);
-  console.log('in renderCanvas imgSrc', imgSrc);
 
   const image = new Image(gCanvas.width, gCanvas.height);
   image.src = imgSrc;
-
+  
   gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
-  if (meme.lines[0].align === 'left')
-  drawText(meme.lines[0].txt, gCanvas.width - gCanvas.width + 1 , gCanvas.height -gCanvas.height + 20);
-  else if (meme.lines[0].align === 'center')
-  drawText(meme.lines[0].txt, gCanvas.width / 2 , gCanvas.height -gCanvas.height + 20);
-  else
-  drawText(meme.lines[0].txt, gCanvas.width - 1 , gCanvas.height -gCanvas.height + 20);
+  
+  checkTextAlign(meme);
+  }
+
+  function checkTextAlign(meme){
+    if (meme.lines[0].align === 'left'){
+      drawText(meme.lines[0].txt, gCanvas.width - gCanvas.width + 1 , gCanvas.height -gCanvas.height + 20);
+      gCanvas.dir = 'ltr';
+    }
+    else if (meme.lines[0].align === 'center')
+    drawText(meme.lines[0].txt, gCanvas.width / 2 - 10 , gCanvas.height -gCanvas.height + 20);
+    else{
+    drawText(meme.lines[0].txt, gCanvas.width - 1 , gCanvas.height -gCanvas.height + 20);
+    gCanvas.dir = 'rtl';
+  }
   
   
 }
@@ -96,6 +147,11 @@ function addEventListeners() {
   addTextTypeEventListener();
   addTextIncreaseFontSizeEventListener();
   addTextDecreaseFontSizeEventListener();
+  addTextAlignLeftEventListener();
+  addTextAlignRightEventListener();
+  addTextAlignCenterEventListener();
+  addStrokeColorEventListener();
+  addFillColorEventListener();
 }
 
 
@@ -106,9 +162,6 @@ function addEventListeners() {
   // <button class="controller" id="switch-text-line"><img src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
   // <button class="controller" id="add-text-line"><img src="assets/controller-symbols/add/add.jpg"></button>
   // <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
-  // <button class="controller" id="align-text-left"><img src="assets/controller-symbols/align-to-left/align-to-left.jpg"></button>
-  // <button class="controller" id="align-text-center"><img src="assets/controller-symbols/align-to-center/center-text-alignment.jpg"></button>
-  // <button class="controller" id="align-text-right"><img src="assets/controller-symbols/align-to-right/align-to-right.jpg"></button><br>
   // <button class="controller" id="change-font-family">IMPACT</button>
   // <button class="controller" id="change-stroke-color">S</button>
   // <button class="controller" id="change-fill-color"><img src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button><br>
@@ -120,9 +173,6 @@ function addEventListeners() {
   // TODO: handle moving line up / down
   // TODO: handle switching text line
   // TODO: handle delete text line
-  // TODO: handle align text - left, right, center
-  // TODO: handle align text - center
-  // TODO: handle align text - right
   // TODO: handle change font
   // TODO: handle change stroke color
   // TODO: handle change fill color
