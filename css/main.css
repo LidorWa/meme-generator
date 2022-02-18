@@ -8,7 +8,7 @@
 
 .grid-container{
     display: grid;
-    width: 98vw;
+    width: 100vw;
     grid-template-columns: repeat(auto-fit, minmax(180px, 2fr));
     text-align: center;
     
@@ -60,6 +60,9 @@ canvas{
 .controller button{
     border-radius: 15px;
 }
+.desktop-btn {
+    display:none;
+}
 
 .fill-and-stroke-div{
     position:relative; 
@@ -107,6 +110,9 @@ canvas{
     .nav-container ul{
         display: inline-block;
         list-style: none;
+    }
+    .desktop-btn{
+        display: inline-block;
     }
 }
 

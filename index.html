@@ -29,12 +29,10 @@
                 <canvas id="meme-canvas">
                         My HTML5 canvas tag doesn't support your primitive $55 browser
                 </canvas>
-                <div class="controller-box">
+                <div class="controller-box" style="display: absolute;">
                         <input class="controller" id="meme-text" placeholder="Text line 1"><br>
-                        <!-- <button class="move-line-down">↧</button>
-            <button class="move-line-up">↥</button> -->
-                        <!-- IN DESKTOP MODE!-->
-
+                        <button class="move-line-down desktop-btn"><img src="assets/controller-symbols/down-double/linedown.png"></button>
+                        <button class="move-line-up desktop-btn"><img src="assets/controller-symbols/up-double/lineup.png"></button>
                         <button class="controller" id="switch-text-line"><img
                                         src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
                         <button class="controller" id="add-text-line"><img
@@ -77,14 +75,16 @@
 
                 </div>
         </section>
-
-        <section class="gallery-page">
+        <section class="search-image-bar">
                 <label for="filter-gallery">Search image for meme:</label>
                 <input list="filter-gallery" id="filter-gallery" name="filter-gallery" />
 
                 <datalist id="search-gallery">
 
                 </datalist>
+        </section>
+        <section class="gallery-page">
+
                 <section class="grid-container">
                 </section>
         </section>

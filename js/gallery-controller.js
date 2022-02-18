@@ -25,7 +25,8 @@ function addImageClickEventLisetner(){
         meme = getMemeFromMemeService();
         meme.selectedImgId = elImg.id;
         renderCanvas();
-        document.querySelector('.grid-container').style.display = 'none';
+        document.querySelector('.gallery-page').style.display = 'none';
+        document.querySelector('.search-image-bar').style.display = 'none';
         document.querySelector('.canvas-container').style.display = 'block';
     }));
 }
