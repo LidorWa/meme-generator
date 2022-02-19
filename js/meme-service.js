@@ -13,7 +13,7 @@ let gMeme = {
             strokeColor: 'black',
             font: 'IMPACT',
             posX: 1,
-            posY: 1
+            posY: 20
         },         {
           txt: '',
           size: 16,
@@ -22,7 +22,7 @@ let gMeme = {
           strokeColor: 'black',
           font: 'IMPACT',
           posX: 1,
-          posY: 0
+          posY: 280
       }
     ]
   }

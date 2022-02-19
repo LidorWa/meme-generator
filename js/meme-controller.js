@@ -9,6 +9,8 @@ function renderCanvas(){
   // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
   let meme = getMemeFromService();
 
+  console.log('meme', meme);
+
   const imgSrc = getImgSrcById(meme.selectedImgId);
 
   const image = new Image(gCanvas.width, gCanvas.height);
@@ -17,165 +19,159 @@ function renderCanvas(){
   gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
   
   checkTextAlign(meme);
-  }
+}
 
 function drawText(text, x, y) {
   let meme = getMemeFromService();
   let line = meme.selectedLineIdx;
   let memeTextStroke = meme.lines[line].strokeColor;
   let memeTextFill = meme.lines[line].fillColor;
-
+  console.log('meme obj in drawtext func', meme)
   gCtx.strokeStyle = 'white';
   gCtx.setLineDash([2,3]);
   gCtx.strokeRect(0, 0, gCanvas.width, gCanvas.height / meme.lines[line].size + 2);
   gCtx.setLineDash([]);
-    gCtx.lineWidth = 0.5;
+  
+  gCtx.lineWidth = 0.5;
+  gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
+
+  gCtx.fillStyle = memeTextFill;
+  gCtx.fillText(text, x, y);
+
+  gCtx.strokeStyle = memeTextStroke;
+  gCtx.strokeText(text, x, y);
+}
+
+function addTextTypeEventListener(){
+  let elTextInput = document.getElementById('meme-text');
+
+  elTextInput.addEventListener('input', (event) => {
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].txt = event.target.value;
+
+    renderCanvas();
+  });
+}
+
+function addTextIncreaseFontSizeEventListener (){
+  let elIncreaseBtn = document.getElementById('increase-font-size');
+  
+  elIncreaseBtn.addEventListener('click', () =>{
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].size += 0.5;
     gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
-    gCtx.fillStyle = `${memeTextFill}`;
-    gCtx.fillText(text, x, y);
+    document.getElementById("meme-text").focus();
 
-    gCtx.strokeStyle = `${memeTextStroke}`;
-    gCtx.strokeText(text, x, y);
-  }
+    renderCanvas();
+  });
+}
 
-  function addTextTypeEventListener(){
-    let elTextInput = document.getElementById('meme-text');
-
+function addTextDecreaseFontSizeEventListener (){
+  let elIncreaseBtn = document.getElementById('decrease-font-size');
+  
+  elIncreaseBtn.addEventListener('click', () =>{
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
 
-    elTextInput.addEventListener('input', (event) => {
+    meme.lines[line].size -= 0.5;
+    gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
+    document.getElementById("meme-text").focus();
 
-      meme.lines[line].txt = event.target.value;
+    renderCanvas();
+  });
+}
 
-      renderCanvas();
-    })
-  }
+function addTextAlignLeftEventListener(){
+  let elAlignLeftBtn = document.getElementById('align-text-left');
 
-
-  function addTextIncreaseFontSizeEventListener (){
-
+  elAlignLeftBtn.addEventListener('click', ()=>{
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
 
-    let elIncreaseBtn = document.getElementById('increase-font-size');
+    meme.lines[line].align = 'left';
+    document.getElementById("meme-text").focus();
+
+    renderCanvas();
+  })
+}
+
+function addTextAlignRightEventListener(){
+  let elAlignLeftBtn = document.getElementById('align-text-right');
+
+  elAlignLeftBtn.addEventListener('click', () => {
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].align = 'right';
+    document.getElementById("meme-text").focus();
+    renderCanvas();
+  });
+}
+
+function addTextAlignCenterEventListener(){
+  let elAlignLeftBtn = document.getElementById('align-text-center');
+
+  elAlignLeftBtn.addEventListener('click', ()=>{
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].align = 'center';
+    document.getElementById("meme-text").focus();
+    renderCanvas();
+  })
+}
+
+function addStrokeColorEventListener(){
+  let elStrokeColorInput = document.querySelector('.stroke-color');
+
+  elStrokeColorInput.addEventListener('input', ()=>{
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
     
-    elIncreaseBtn.addEventListener('click', () =>{
-      meme.lines[line].size += 0.5;
-      gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
-      document.getElementById("meme-text").focus();
+    meme.lines[line].strokeColor = elStrokeColorInput.value;
+    document.getElementById("meme-text").focus();
 
-      renderCanvas();
-    });
-  }
+    renderCanvas();
+  })
+}
 
-  function addTextDecreaseFontSizeEventListener (){
+function addFillColorEventListener(){
+  let elFillColorInput = document.querySelector('.fill-color');
 
+  elFillColorInput.addEventListener('input', ()=>{
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
 
-    let elIncreaseBtn = document.getElementById('decrease-font-size');
-    
-    elIncreaseBtn.addEventListener('click', () =>{
-      meme.lines[line].size -= 0.5;
-      gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
-      document.getElementById("meme-text").focus();
+    meme.lines[line].fillColor = elFillColorInput.value;
+    document.getElementById("meme-text").focus();
 
-      renderCanvas();
-    });
-  }
+    renderCanvas();
+  })
+}
 
-  function addTextAlignLeftEventListener(){
+function checkTextAlign(meme){
+  meme.lines.forEach(line => {
+    if (line.align === 'left'){
+      line.posX = 1;
 
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-
-    let elAlignLeftBtn = document.getElementById('align-text-left');
-
-    elAlignLeftBtn.addEventListener('click', ()=>{
-      meme.lines[line].align = 'left';
-      document.getElementById("meme-text").focus();
-
-      renderCanvas();
-    })
-  }
-  function addTextAlignRightEventListener(){
-
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-
-    let elAlignLeftBtn = document.getElementById('align-text-right');
-
-    elAlignLeftBtn.addEventListener('click', ()=>{
-      meme.lines[line].align = 'right';
-      document.getElementById("meme-text").focus();
-      renderCanvas();
-    })
-  }
-
-  function addTextAlignCenterEventListener(){
-
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-
-    let elAlignLeftBtn = document.getElementById('align-text-center');
-
-    elAlignLeftBtn.addEventListener('click', ()=>{
-      meme.lines[line].align = 'center';
-      document.getElementById("meme-text").focus();
-      renderCanvas();
-    })
-  }
-
-  function addStrokeColorEventListener(){
-
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-
-    let elStrokeColorInput = document.querySelector('.stroke-color');
-
-    elStrokeColorInput.addEventListener('input', ()=>{
-      meme.lines[line].strokeColor = elStrokeColorInput.value;
-      gCtx.strokeStyle = `${meme.lines[line].strokeColor}`;
-      document.getElementById("meme-text").focus();
-
-      renderCanvas();
-    })
-  }
-
-  function addFillColorEventListener(){
-
-    let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
-
-    let elFillColorInput = document.querySelector('.fill-color');
-
-    elFillColorInput.addEventListener('input', ()=>{
-      meme.lines[line].fillColor = elFillColorInput.value;
-      gCtx.fillStyle = `${meme.lines[line].fillColor}`;
-      document.getElementById("meme-text").focus();
-
-      renderCanvas();
-    })
-  }
-
-  function checkTextAlign(meme){
-    let currLine = meme.selectedLineIdx;
-    if (meme.lines[currLine].align === 'left'){
-      meme.lines[currLine].posX = 1;
-      meme.lines[currLine].posY = 20;
-
-      drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
+      drawText(line.txt, line.posX , line.posY);
     }
-    else if (meme.lines[currLine].align === 'center') {
-      meme.lines[currLine].posX = (gCanvas.width / 2) - (gCtx.measureText(meme.lines[currLine].txt).width / 2);
-      drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
+    else if (line.align === 'center') {
+      line.posX = (gCanvas.width / 2) - (gCtx.measureText(line.txt).width / 2);
+
+      drawText(line.txt, line.posX , line.posY);
     }
     else {
-      meme.lines[currLine].posX = gCanvas.width - gCtx.measureText(meme.lines[currLine].txt).width
-      drawText(meme.lines[currLine].txt, meme.lines[currLine].posX, 20);
+      line.posX = gCanvas.width - gCtx.measureText(line.txt).width;
+
+      drawText(line.txt, line.posX, line.posY);
     }
-  }
+  });
+}
 
 function addBackToGalleryLinkEventListener(){
   let elGalleryLink = document.querySelector('.back-to-gallery');
@@ -206,29 +202,32 @@ function addSwitchTextLineEventListener(){
   let switchTextLineBtn = document.getElementById('switch-text-line');
 
   switchTextLineBtn.addEventListener('click', ()=>{
-   meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length -1))?  0:+1;
-   let currLine = meme.selectedLineIdx;
-   
-   if (currLine === 0) meme.lines[0].posY = 1;
-   else if (currLine === 1) meme.lines[1].posY = gCanvas.height - 5;
-   else if (currLine === 2) meme.lines[2].posY = gCanvas.height / 2;
-   else if (currLine > 2) meme.lines[currLine].posY = gCanvas.height / 2 + meme.lines[meme.selectedLineIdx-1].size;
-   drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
-   document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`
-   renderCanvas();
+    meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length -1))?  0:+1;
+    let currLine = meme.selectedLineIdx;
+    
+    console.log('currLine', currLine);
+    // if (currLine === 0) meme.lines[currLine].posY = 20;
+    // else if (currLine === 1) meme.lines[currLine].posY = gCanvas.height - 5;
+    // else if (currLine === 2) meme.lines[currLine].posY = gCanvas.height / 2;
+    // else if (currLine > 2) meme.lines[currLine].posY = gCanvas.height / 2 + meme.lines[currLine - 1].size;
+    //  drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
+    document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`
+    //  renderCanvas();
    
   })
 
 }
 
 function addDownloadCanvasEventListener() {
-  let meme = getMemeFromService();
-  let memeId = meme.selectedImgId;
-  
-  let elDownloadBtnA = document.getElementById('download-canvas-a');
+
   let elDownloadBtn = document.getElementById('download-canvas');
 
   elDownloadBtn.addEventListener('click',()=>{
+    let meme = getMemeFromService();
+    let memeId = meme.selectedImgId;
+
+    let elDownloadBtnA = document.getElementById('download-canvas-a');
+
     let imgContent = gCanvas.toDataURL('image/jpeg');
 
     elDownloadBtnA.href = imgContent;
@@ -238,17 +237,61 @@ function addDownloadCanvasEventListener() {
 
 function addShareToFacebookEventListener() {
 
-  let elShareFbBtn = document.getElementById('share-canvas');
+  let elShareFbBtn = document.getElementById('share-canvas-fb');
 
   elShareFbBtn.addEventListener('click',()=>{
+
     let imgDataUrl = gCanvas.toDataURL("image/jpeg");
+
   function onSuccess(uploadedImgUrl) {
       let encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
       document.querySelector('.user-msg').innerText = `Your photo is available here:`
 
+      // document.querySelector('.share-container').innerHTML = `
+      // <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
+      // target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}');
+      // document.querySelector('.user-msg').style.display = 'none'; document.querySelector('.share-container').style.display = 'none';  return false;">
+      //    Share   
+      // </a>`
       document.querySelector('.share-container').innerHTML = `
       <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
-      target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+      target="_blank" onclick="() => onFacebookShareBtnClick(uploadedImgUrl)">
+         Share   
+      </a>`
+  }
+  
+  doShareImg(imgDataUrl, onSuccess);
+})
+}
+
+//TODO: change function name
+function onFacebookShareBtnClick(uploadedImgUrl) {
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
+  document.querySelector('.user-msg').style.display = 'none'
+  document.querySelector('.share-container').style.display = 'none'; 
+  return false;
+}
+
+function addShareToWhatsappEventListener() {
+
+  let elShareWhatsappBtn = document.getElementById('share-canvas-whatsapp');
+
+  elShareWhatsappBtn.addEventListener('click',()=>{
+
+    let imgDataUrl = gCanvas.toDataURL("image/jpeg");
+
+  function onSuccess(uploadedImgUrl) {
+      let encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+      document.querySelector('.user-msg').innerText = `Your photo is available here:`
+
+      // document.querySelector('.share-container').innerHTML = `
+      // <a class="share-to-whatsapp-btn" href="whatsapp://send?text=${encodedUploadedImgUrl}" title="Share to Whatsapp" target="_blank" onclick="window.open(whatsapp://send?text=${encodedUploadedImgUrl});
+      // document.querySelector('.user-msg').style.display = 'none'; document.querySelector('.share-container').style.display = 'none';  return false;">
+      //    Share   
+      // </a>`
+
+      document.querySelector('.share-container').innerHTML = `
+      <a class="share-to-whatsapp-btn" href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">
          Share   
       </a>`
   }
@@ -296,6 +339,7 @@ function addMemeEventListeners() {
   addBackToGalleryLogoLinkEventListener();
   addDownloadCanvasEventListener();
   addShareToFacebookEventListener();
+  addShareToWhatsappEventListener();
 }
 
 
@@ -307,7 +351,6 @@ function addMemeEventListeners() {
   // <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
   // <button class="controller" id="change-font-family">IMPACT</button>
   // <!-- stickers! -->
-  // <button class="controller" id="share-canvas">Share!</button>
 
   // TODO: adding the line up / down buttons to desktop mode
   // TODO: handle moving line up / down
@@ -315,7 +358,6 @@ function addMemeEventListeners() {
   // TODO: handle delete text line
   // TODO: handle change font
   // TODO: handle share canvas
-  // TODO: handle download canvas
   // TODO: add functionality to header links (+ in hamburger)
   
   // TODO: when decrease font size, it also changes it's y axis toward the start. 

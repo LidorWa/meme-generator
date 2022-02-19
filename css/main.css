@@ -42,7 +42,6 @@ body{
 .canvas-container{
     display: none;
     flex-direction: column;
-    background-color: wheat;
     width: 90vw;
     height: 80vh;
     
@@ -83,6 +82,22 @@ canvas{
 
 .share-to-fb-btn {
     background: #4267b2;
+    border: 1px solid #4267b2;
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0 5px;
+    user-select: none;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 3px;
+  }
+
+  .share-to-whatsapp-btn {
+    background: rgb(31, 158, 19);
     border: 1px solid #4267b2;
     font-size: 22px;
     color: #fff;
