@@ -19,9 +19,6 @@ function renderCanvas(){
 }
 
 function getTextPosition(line) {
-  console.log('in getTextPos line', line);
-  console.log('in getTextPos gCtx.measureText(line.txt).width', gCtx.measureText(line.txt).width);
-
   let position = {};
   position.y = line.posY;
 
@@ -76,9 +73,34 @@ function addTextTypeEventListener(){
   elTextInput.addEventListener('input', (event) => {
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
-
     meme.lines[line].txt = event.target.value;
 
+    renderCanvas();
+  });
+}
+
+function addTextLineDownEventListener(){
+  let elLineDownBtn = document.getElementById('move-line-down');
+
+  elLineDownBtn.addEventListener('click', () => {
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].posY += 2;
+    document.getElementById("meme-text").focus();
+    renderCanvas();
+  });
+}
+
+function addTextLineUpEventListener(){
+  let elLineUpBtn = document.getElementById('move-line-up');
+
+  elLineUpBtn.addEventListener('click', () => {
+    let meme = getMemeFromService();
+    let line = meme.selectedLineIdx;
+
+    meme.lines[line].posY -= 2;
+    document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -98,6 +120,75 @@ function addTextIncreaseFontSizeEventListener (){
     renderCanvas();
   });
 }
+
+function addNewTextLineEventListener (){
+  let elNewLineBtn = document.getElementById('add-text-line');
+
+  elNewLineBtn.addEventListener('click', () => {
+    let meme = getMemeFromService();
+    if (!meme.lines || !meme.lines.length){
+      let elEnableController = document.querySelectorAll('.controller');
+      elEnableController.forEach(enableController =>{
+        enableController.disabled = false;
+
+      })
+      let linePosY = 20;
+      onCreateNewLines(linePosY);
+      meme.selectedLineIdx = 0;
+      renderCanvas();
+    } else {
+    let linePosY = gCanvas.height / 2;
+    let currLine;
+  
+    onCreateNewLines(linePosY);
+    meme.selectedLineIdx = meme.lines.length-1;
+    currLine = meme.selectedLineIdx;
+    
+    document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
+    document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
+    document.getElementById("meme-text").focus();
+    renderCanvas();
+    }
+  }) 
+}
+
+function onCreateNewLines(linePosY){
+  createNewLines(linePosY);
+}
+
+function addDeleteTextLineEventListener (){
+  let elDeleteLineBtn = document.getElementById('delete-text-line');
+
+  elDeleteLineBtn.addEventListener('click', () => {
+
+    let meme = getMemeFromService();
+
+    let currLine = meme.selectedLineIdx;
+    onDeleteLines(currLine);
+
+
+    meme.selectedLineIdx = meme.lines.length-1;
+    currLine = meme.selectedLineIdx
+    
+    if (meme.lines && meme.lines.length > 0) {
+      document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
+      document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
+      document.getElementById("meme-text").focus();
+    } else{
+      let elDisableController = document.querySelectorAll('.controller');
+      elDisableController.forEach(disableController =>{
+        if (disableController.id !== 'add-text-line') disableController.disabled = 'true';
+      })
+    }
+
+    renderCanvas();
+  }) 
+}
+
+function onDeleteLines(currLine){
+  deleteLines(currLine);
+}
+
 
 function addTextDecreaseFontSizeEventListener (){
   let elIncreaseBtn = document.getElementById('decrease-font-size');
@@ -184,18 +275,14 @@ function addFillColorEventListener(){
 }
 
 
-
-
 function addSwitchTextLineEventListener(){
 
-  let meme = getMemeFromService();
-  
   let switchTextLineBtn = document.getElementById('switch-text-line');
 
   switchTextLineBtn.addEventListener('click', ()=>{
-    meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length -1))?  0:+1;
+    let meme = getMemeFromService();
+    meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length-1))?  0:meme.selectedLineIdx+1;
     let currLine = meme.selectedLineIdx;
-    
     
     document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
     document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
@@ -269,7 +356,7 @@ function addShareToWhatsappEventListener() {
       // document.querySelector('.user-msg').style.display = 'none'; document.querySelector('.share-container').style.display = 'none';  return false;">
       //    Share   
       // </a>`
-
+      // console.log(encodedUploadedImgUrl);
       document.querySelector('.share-container').innerHTML = `
       <a class="share-to-whatsapp-btn" href="whatsapp://send?${encodedUploadedImgUrl}" data-action="share/whatsapp/share">
          Share   
@@ -284,7 +371,6 @@ function doShareImg(imgDataUrl, onSuccess) {
 
   const formData = new FormData();
   formData.append('img', imgDataUrl)
-  console.log ('imgDataUrl from doShareToFbImg func', imgDataUrl)
 
   fetch('//ca-upload.com/here/upload.php', {
       method: 'POST',
@@ -316,49 +402,13 @@ function addMemeEventListeners() {
   addFillColorEventListener();
   addBackToGalleryLinkEventListener();
   addSwitchTextLineEventListener();
+  addTextLineDownEventListener();
+  addTextLineUpEventListener()
+  addNewTextLineEventListener();
+  addDeleteTextLineEventListener ();
   addBackToGalleryLogoLinkEventListener();
   addDownloadCanvasEventListener();
   addShareToFacebookEventListener();
-  addShareToWhatsappEventListener();
+
+  // addShareToWhatsappEventListener();
 }
-
-
-  // <input class="controller" id="meme-text" placeholder="Text line 1"><br>
-  // <!-- <button class="move-line-down">↧</button>
-  // <button class="move-line-up">↥</button> -->  <!-- IN DESKTOP MODE!-->
-
-  // <button class="controller" id="add-text-line"><img src="assets/controller-symbols/add/add.jpg"></button>
-  // <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
-  // <button class="controller" id="change-font-family">IMPACT</button>
-  // <!-- stickers! -->
-
-  // TODO: adding the line up / down buttons to desktop mode
-  // TODO: handle moving line up / down
-  // TODO: handle switching text line
-  // TODO: handle delete text line
-  // TODO: handle change font
-  // TODO: handle share canvas
-  // TODO: add functionality to header links (+ in hamburger)
-  
-  // TODO: when decrease font size, it also changes it's y axis toward the start. 
-  // to make sure increasing the font size afterwards doesnt take the text out of boundaries
-
-  // TODO: fixing a bug - switching to the second line(the bottom one) in the switch lines function
-  // makes the initial text dissappear, and the the new text line doesnt appear
-
-  // TODO: added a rectangle around the text. fix it so it would grow with the font growth.
-  // TODO: to add a rectangle for every new line
-
-
-  // TODO: to implement the following function - should fix the canvas getting disfigured when changing screen width.
-  // allso make sure it fixes height problems
-
-
-  // function resizeCanvas() {
-  // var elContainer = document.querySelector('.canvas-container');
-  // // Note: changing the canvas dimension this way clears the canvas
-  // gCanvas.width = elContainer.offsetWidth - 20
-  // // Unless needed, better keep height fixed.
-  // //   gCanvas.height = elContainer.offsetHeight
-// }
-

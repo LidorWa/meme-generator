@@ -15,6 +15,10 @@ body{
 .nav-container li,span,.logo:hover{
     cursor: pointer;
 }
+.logo {
+    width: 100px;
+    margin: 3px;
+}
 
 .grid-container{
     display: grid;
@@ -34,10 +38,7 @@ body{
     cursor: zoom-in;
 }
 
-.logo {
-    width: 20vw;
-    margin: 3px;
-}
+
 
 .canvas-container{
     display: none;
@@ -129,7 +130,23 @@ canvas{
     cursor: pointer;
 }
 
-@media (min-width: 500px){
+@media (min-width: 555px){
+    .logo-container{
+        justify-self: flex-start;
+    }
+    .logo {
+        width: 15vw;
+        margin: 3px;
+    }
+    .hamburger-symbol {
+        display: none;
+    }
+    .nav-container ul{
+        display: flex;
+        list-style: none;
+
+    }
+    
     .grid-container{
         width: 95vw;
         height: 85vh;
@@ -141,44 +158,34 @@ canvas{
         width: 80%;
     }
 
-    .hamburger-symbol {
-        display: none;
-    }
-    .logo-container{
-        justify-self: flex-start;
-    }
-    .nav-container ul{
-        display: flex;
-        list-style: none;
-
-    }
     .desktop-btn{
         display: inline-block;
     }
 
+    .search-image-bar{
+        float: right;
+        }
     .canvas-container{
         
         flex-direction: row;
         width: 100vw;
+        justify-content: center;
 
     }
-    .canvas-div{
-        width: 45vw;
-        height: 75vh;
-    }
-    canvas {
-        width: 45vw;
-        height: 45vh;
-   
-    }
-
     .controller-box{
         align-self: center;
         justify-self: center;
         height: 75vh;
-        width: 55vw;
         
     }
-}
+    .canvas-div{
+        height: 75vh;
+    }
+    canvas {
+        width: 380px;
+        height: 380px;
+   
+    }
 
-/* TODO: to check if i would like to cancel overflow or not */
+
+}

@@ -1,0 +1,19 @@
+  // TODO: handle delete text line
+  // TODO: handle change font
+  // TODO: add functionality to header links (+ in hamburger)
+   // TODO: make sure that when download or share canvas is clicked, the rectangles around the text clear.
+
+  // TODO: to implement the following function - should fix the canvas getting disfigured when changing screen width.
+  // allso make sure it fixes height problems
+
+ 
+
+
+  // function resizeCanvas() {
+  // var elContainer = document.querySelector('.canvas-container');
+  // // Note: changing the canvas dimension this way clears the canvas
+  // gCanvas.width = elContainer.offsetWidth - 20
+  // // Unless needed, better keep height fixed.
+  // //   gCanvas.height = elContainer.offsetHeight
+// }
+

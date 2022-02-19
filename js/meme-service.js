@@ -35,22 +35,22 @@ function getMemeFromService(){
     return gMeme;
   }
 
-  function createNewLine(txt = '', size = 16, align = 'left', fillColor = 'white', strokeColor = 'black', font = 'IMPACT', posX = 1, posY = 20){
+  function createNewLine({txt, size, align, fillColor, strokeColor, font, posX, posY}){
     return {
-      txt: txt,
-      size: size,
-      align: align,
-      fillColor: fillColor,
-      strokeColor: strokeColor,
-      font: font,
-      posX: posX,
-      posY: posY
+      txt: txt ? txt : '',
+      size: size ? size : 16,
+      align: align ? align : 'left',
+      fillColor: fillColor ? fillColor : 'white',
+      strokeColor: strokeColor ? strokeColor : 'black',
+      font: font ? font : 'IMPACT',
+      posX: posX ? posX : 1,
+      posY: posY ? posY : 20
     }
   }
 
   function createNewLines(posY){
   
-    gMeme.lines.push(createNewLine(posY))
+    gMeme.lines.push(createNewLine({posY}))
   }
 
 

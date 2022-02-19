@@ -31,10 +31,10 @@
                 <div class="controller-box">
                         <input class="controller" id="meme-text" placeholder="Text line 1" name="meme-text"><br>
 
-                        <button class="move-line-down desktop-btn" title="Move line down!">
+                        <button class="move-line-down desktop-btn controller" id="move-line-down" title="Move line down!">
                                 <img src="assets/controller-symbols/down-double/linedown.png"></button>
 
-                        <button class="move-line-up desktop-btn" title="Move line up!">
+                        <button class="move-line-up desktop-btn controller" id="move-line-up" title="Move line up!">
                                 <img src="assets/controller-symbols/up-double/lineup.png"></button>
 
                         <button class="controller" id="switch-text-line" title="Switch between lines!">
@@ -65,13 +65,13 @@
 
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-stroke-color">S</button>
-                                <input class="fill-and-stroke-input stroke-color" type="color" value="#ff0000"
+                                <input class="fill-and-stroke-input stroke-color controller" type="color" value="#ff0000"
                                         title="Change text border color!" />
                         </div>
                         <div class="fill-and-stroke-div">
                                 <button class="controller" id="change-fill-color"><img
                                                 src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button>
-                                <input class="fill-and-stroke-input fill-color" type="color" value="#ff0000"
+                                <input class="fill-and-stroke-input fill-color controller" type="color" value="#ff0000"
                                         title="Change text color!" />
                         </div><br>
 
@@ -81,8 +81,8 @@
 
                                 Share:<button class="controller" id="share-canvas-fb" title="Share to facebook!">
                                  <img src="assets/controller-symbols/facebook-logo/fb-logo.png"></button>
-                                 <button class="controller" id="share-canvas-whatsapp" title="Share to Whatsapp!">
-                                        <img src="assets/controller-symbols/whatsapp-logo/whatsapp-logo.png"></button>
+                                 <!-- <button class="controller" id="share-canvas-whatsapp" title="Share to Whatsapp!">
+                                        <img src="assets/controller-symbols/whatsapp-logo/whatsapp-logo.png"></button> -->
 
                                 <p class="user-msg"></p>
                                 <div class="share-container"></div>
