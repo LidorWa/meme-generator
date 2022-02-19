@@ -25,11 +25,10 @@ function drawText(text, x, y) {
   let memeTextStroke = meme.lines[line].strokeColor;
   let memeTextFill = meme.lines[line].fillColor;
 
-  // gCtx.strokeStyle = 'white';
-  // gCtx.setLineDash([2,3]);
-  // gCtx.strokeRect(gCanvas.width-gCanvas.width, gCanvas.height-gCanvas.height, gCanvas.width,
-  //   gCanvas.height / memeFontSize + 2);
-     
+  gCtx.strokeStyle = 'white';
+  gCtx.setLineDash([2,3]);
+  gCtx.strokeRect(0, 0, gCanvas.width, gCanvas.height / meme.lines[line].size + 2);
+  gCtx.setLineDash([]);
     gCtx.lineWidth = 0.5;
     gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
     gCtx.fillStyle = `${memeTextFill}`;
@@ -189,9 +188,20 @@ function addBackToGalleryLinkEventListener(){
   })
 }
 
+function addBackToGalleryLogoLinkEventListener(){
+  let elGalleryLink = document.querySelector('.logo');
+  let elCanvasContainer = document.querySelector('.canvas-container');
+  let elGalleryContainer = document.querySelector('.gallery-page')
+
+  elGalleryLink.addEventListener('click',()=>{
+    elCanvasContainer.style.display = 'none';
+    elGalleryContainer.style.display = 'block';
+  })
+}
+
 function addSwitchTextLineEventListener(){
 
-  let meme = getMemeFromMemeService();
+  let meme = getMemeFromService();
   
   let switchTextLineBtn = document.getElementById('switch-text-line');
 
@@ -211,6 +221,20 @@ function addSwitchTextLineEventListener(){
 
 }
 
+function addDownloadCanvasEventListener() {
+  let meme = getMemeFromService();
+  let memeId = meme.selectedImgId;
+  
+  let elDownloadBtnA = document.getElementById('download-canvas-a');
+  let elDownloadBtn = document.getElementById('download-canvas');
+
+  elDownloadBtn.addEventListener('click',()=>{
+    let imgContent = gCanvas.toDataURL('image/jpeg');
+
+    elDownloadBtnA.href = imgContent;
+    elDownloadBtnA.download = `canvas-img-${memeId}.jpg`;
+  })
+}
 
 function onGetImgFromGallery(memeId){
   return getImgFromGallery(memeId);
@@ -228,14 +252,15 @@ function addMemeEventListeners() {
   addFillColorEventListener();
   addBackToGalleryLinkEventListener();
   addSwitchTextLineEventListener();
+  addBackToGalleryLogoLinkEventListener();
+  addDownloadCanvasEventListener()
 }
 
 
   // <input class="controller" id="meme-text" placeholder="Text line 1"><br>
   // <!-- <button class="move-line-down">↧</button>
   // <button class="move-line-up">↥</button> -->  <!-- IN DESKTOP MODE!-->
-  
-  // <button class="controller" id="switch-text-line"><img src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
+
   // <button class="controller" id="add-text-line"><img src="assets/controller-symbols/add/add.jpg"></button>
   // <button class="controller" id="delete-text-line"><img src="assets/controller-symbols/trash/trash.jpg"></button><br>
   // <button class="controller" id="change-font-family">IMPACT</button>
@@ -257,6 +282,9 @@ function addMemeEventListeners() {
 
   // TODO: fixing a bug - switching to the second line(the bottom one) in the switch lines function
   // makes the initial text dissappear, and the the new text line doesnt appear
+
+  // TODO: added a rectangle around the text. fix it so it would grow with the font growth.
+  // TODO: to add a rectangle for every new line
 
 
   // TODO: to implement the following function - should fix the canvas getting disfigured when changing screen width.
