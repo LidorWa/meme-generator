@@ -236,6 +236,47 @@ function addDownloadCanvasEventListener() {
   })
 }
 
+function addShareToFacebookEventListener() {
+
+  let elShareFbBtn = document.getElementById('share-canvas');
+
+  elShareFbBtn.addEventListener('click',()=>{
+    let imgDataUrl = gCanvas.toDataURL("image/jpeg");
+  function onSuccess(uploadedImgUrl) {
+      let encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+      document.querySelector('.user-msg').innerText = `Your photo is available here:`
+
+      document.querySelector('.share-container').innerHTML = `
+      <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
+      target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+         Share   
+      </a>`
+  }
+  
+  doShareImg(imgDataUrl, onSuccess);
+})
+}
+
+function doShareImg(imgDataUrl, onSuccess) {
+
+  const formData = new FormData();
+  formData.append('img', imgDataUrl)
+  console.log ('imgDataUrl from doShareToFbImg func', imgDataUrl)
+
+  fetch('//ca-upload.com/here/upload.php', {
+      method: 'POST',
+      body: formData
+  })
+  .then(res => res.text())
+  .then((url)=>{
+      console.log('Got back live url:', url);
+      onSuccess(url)
+  })
+  .catch((err) => {
+      console.error(err)
+  })
+}
+
 function onGetImgFromGallery(memeId){
   return getImgFromGallery(memeId);
 }
@@ -253,7 +294,8 @@ function addMemeEventListeners() {
   addBackToGalleryLinkEventListener();
   addSwitchTextLineEventListener();
   addBackToGalleryLogoLinkEventListener();
-  addDownloadCanvasEventListener()
+  addDownloadCanvasEventListener();
+  addShareToFacebookEventListener();
 }
 
 
@@ -266,7 +308,6 @@ function addMemeEventListeners() {
   // <button class="controller" id="change-font-family">IMPACT</button>
   // <!-- stickers! -->
   // <button class="controller" id="share-canvas">Share!</button>
-  // <button class="controller" id="download-canvas">Download meme!</button>
 
   // TODO: adding the line up / down buttons to desktop mode
   // TODO: handle moving line up / down
