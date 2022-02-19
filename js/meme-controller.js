@@ -6,10 +6,7 @@
 
 
 function renderCanvas(){
-  // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
   let meme = getMemeFromService();
-
-  console.log('meme', meme);
 
   const imgSrc = getImgSrcById(meme.selectedImgId);
 
@@ -18,28 +15,59 @@ function renderCanvas(){
   
   gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
   
-  checkTextAlign(meme);
+  drawText();
 }
 
-function drawText(text, x, y) {
+function getTextPosition(line) {
+  console.log('in getTextPos line', line);
+  console.log('in getTextPos gCtx.measureText(line.txt).width', gCtx.measureText(line.txt).width);
+
+  let position = {};
+  position.y = line.posY;
+
+  if (line.align === 'left'){
+    position.x = 1;
+    
+    line.posX = 1;
+  }
+  else if (line.align === 'center') {
+    position.x = line.posX = (gCanvas.width / 2) - (gCtx.measureText(line.txt).width / 2);
+
+    line.posX = (gCanvas.width / 2) - (gCtx.measureText(line.txt).width / 2);
+  }
+  else {
+    position.x = gCanvas.width - gCtx.measureText(line.txt).width;
+
+    line.posX = gCanvas.width - gCtx.measureText(line.txt).width;
+  }
+
+  return position;
+}
+
+function drawText() {
   let meme = getMemeFromService();
-  let line = meme.selectedLineIdx;
-  let memeTextStroke = meme.lines[line].strokeColor;
-  let memeTextFill = meme.lines[line].fillColor;
-  console.log('meme obj in drawtext func', meme)
-  gCtx.strokeStyle = 'white';
-  gCtx.setLineDash([2,3]);
-  gCtx.strokeRect(0, 0, gCanvas.width, gCanvas.height / meme.lines[line].size + 2);
-  gCtx.setLineDash([]);
+
+  meme.lines.forEach(line => {
+    let linePos = getTextPosition(line);
+
+    drawRectBorderForText(line);
+    gCtx.lineWidth = 0.5;
+    gCtx.font = `${line.size}px ${line.font}`;
   
-  gCtx.lineWidth = 0.5;
-  gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
 
-  gCtx.fillStyle = memeTextFill;
-  gCtx.fillText(text, x, y);
+    gCtx.fillStyle = line.fillColor;
+    gCtx.fillText(line.txt, linePos.x, linePos.y);
+  
+    gCtx.strokeStyle = line.strokeColor;
+    gCtx.strokeText(line.txt, linePos.x, linePos.y);
+  })  
+}
 
-  gCtx.strokeStyle = memeTextStroke;
-  gCtx.strokeText(text, x, y);
+function drawRectBorderForText (line){
+    gCtx.strokeStyle = 'white';
+    gCtx.setLineDash([2,3]);
+    gCtx.strokeRect(0, line.posY-line.size, gCanvas.width, line.size + 4);
+    gCtx.setLineDash([]);
 }
 
 function addTextTypeEventListener(){
@@ -63,8 +91,9 @@ function addTextIncreaseFontSizeEventListener (){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].size += 0.5;
-    gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
+    
     document.getElementById("meme-text").focus();
+
 
     renderCanvas();
   });
@@ -75,12 +104,10 @@ function addTextDecreaseFontSizeEventListener (){
   
   elIncreaseBtn.addEventListener('click', () =>{
     let meme = getMemeFromService();
-    let line = meme.selectedLineIdx;
+    let currLine = meme.selectedLineIdx;
 
-    meme.lines[line].size -= 0.5;
-    gCtx.font = `${meme.lines[line].size}px ${meme.lines[line].font}`;
+    meme.lines[currLine].size -= 0.5;
     document.getElementById("meme-text").focus();
-
     renderCanvas();
   });
 }
@@ -88,11 +115,12 @@ function addTextDecreaseFontSizeEventListener (){
 function addTextAlignLeftEventListener(){
   let elAlignLeftBtn = document.getElementById('align-text-left');
 
-  elAlignLeftBtn.addEventListener('click', ()=>{
+  elAlignLeftBtn.addEventListener('click', () => {
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
 
     meme.lines[line].align = 'left';
+
     document.getElementById("meme-text").focus();
 
     renderCanvas();
@@ -107,6 +135,7 @@ function addTextAlignRightEventListener(){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].align = 'right';
+
     document.getElementById("meme-text").focus();
     renderCanvas();
   });
@@ -120,6 +149,7 @@ function addTextAlignCenterEventListener(){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].align = 'center';
+
     document.getElementById("meme-text").focus();
     renderCanvas();
   })
@@ -153,47 +183,8 @@ function addFillColorEventListener(){
   })
 }
 
-function checkTextAlign(meme){
-  meme.lines.forEach(line => {
-    if (line.align === 'left'){
-      line.posX = 1;
 
-      drawText(line.txt, line.posX , line.posY);
-    }
-    else if (line.align === 'center') {
-      line.posX = (gCanvas.width / 2) - (gCtx.measureText(line.txt).width / 2);
 
-      drawText(line.txt, line.posX , line.posY);
-    }
-    else {
-      line.posX = gCanvas.width - gCtx.measureText(line.txt).width;
-
-      drawText(line.txt, line.posX, line.posY);
-    }
-  });
-}
-
-function addBackToGalleryLinkEventListener(){
-  let elGalleryLink = document.querySelector('.back-to-gallery');
-  let elCanvasContainer = document.querySelector('.canvas-container');
-  let elGalleryContainer = document.querySelector('.gallery-page')
-
-  elGalleryLink.addEventListener('click',()=>{
-    elCanvasContainer.style.display = 'none';
-    elGalleryContainer.style.display = 'block';
-  })
-}
-
-function addBackToGalleryLogoLinkEventListener(){
-  let elGalleryLink = document.querySelector('.logo');
-  let elCanvasContainer = document.querySelector('.canvas-container');
-  let elGalleryContainer = document.querySelector('.gallery-page')
-
-  elGalleryLink.addEventListener('click',()=>{
-    elCanvasContainer.style.display = 'none';
-    elGalleryContainer.style.display = 'block';
-  })
-}
 
 function addSwitchTextLineEventListener(){
 
@@ -205,15 +196,11 @@ function addSwitchTextLineEventListener(){
     meme.selectedLineIdx = (meme.selectedLineIdx === (meme.lines.length -1))?  0:+1;
     let currLine = meme.selectedLineIdx;
     
-    console.log('currLine', currLine);
-    // if (currLine === 0) meme.lines[currLine].posY = 20;
-    // else if (currLine === 1) meme.lines[currLine].posY = gCanvas.height - 5;
-    // else if (currLine === 2) meme.lines[currLine].posY = gCanvas.height / 2;
-    // else if (currLine > 2) meme.lines[currLine].posY = gCanvas.height / 2 + meme.lines[currLine - 1].size;
-    //  drawText(meme.lines[currLine].txt, meme.lines[currLine].posX , meme.lines[currLine].posY);
-    document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`
-    //  renderCanvas();
-   
+    
+    document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
+    document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
+    document.getElementById("meme-text").focus();
+     
   })
 
 }
@@ -245,14 +232,8 @@ function addShareToFacebookEventListener() {
 
   function onSuccess(uploadedImgUrl) {
       let encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+      
       document.querySelector('.user-msg').innerText = `Your photo is available here:`
-
-      // document.querySelector('.share-container').innerHTML = `
-      // <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
-      // target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}');
-      // document.querySelector('.user-msg').style.display = 'none'; document.querySelector('.share-container').style.display = 'none';  return false;">
-      //    Share   
-      // </a>`
       document.querySelector('.share-container').innerHTML = `
       <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
       target="_blank" onclick="() => onFacebookShareBtnClick(uploadedImgUrl)">
@@ -264,7 +245,6 @@ function addShareToFacebookEventListener() {
 })
 }
 
-//TODO: change function name
 function onFacebookShareBtnClick(uploadedImgUrl) {
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
   document.querySelector('.user-msg').style.display = 'none'
@@ -291,7 +271,7 @@ function addShareToWhatsappEventListener() {
       // </a>`
 
       document.querySelector('.share-container').innerHTML = `
-      <a class="share-to-whatsapp-btn" href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">
+      <a class="share-to-whatsapp-btn" href="whatsapp://send?${encodedUploadedImgUrl}" data-action="share/whatsapp/share">
          Share   
       </a>`
   }

@@ -22,3 +22,27 @@ function init(){
 
 
 }
+
+
+
+function addBackToGalleryLinkEventListener(){
+    let elGalleryLink = document.querySelector('.back-to-gallery');
+    let elCanvasContainer = document.querySelector('.canvas-container');
+    let elGalleryContainer = document.querySelector('.gallery-page')
+  
+    elGalleryLink.addEventListener('click',()=>{
+      elCanvasContainer.style.display = 'none';
+      elGalleryContainer.style.display = 'block';
+    })
+  }
+  
+  function addBackToGalleryLogoLinkEventListener(){
+    let elGalleryLink = document.querySelector('.logo');
+    let elCanvasContainer = document.querySelector('.canvas-container');
+    let elGalleryContainer = document.querySelector('.gallery-page')
+  
+    elGalleryLink.addEventListener('click',()=>{
+      elCanvasContainer.style.display = 'none';
+      elGalleryContainer.style.display = 'block';
+    })
+  }
