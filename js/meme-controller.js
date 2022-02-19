@@ -87,7 +87,7 @@ function addTextLineDownEventListener(){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].posY += 2;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -100,7 +100,7 @@ function addTextLineUpEventListener(){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].posY -= 2;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -114,7 +114,7 @@ function addTextIncreaseFontSizeEventListener (){
 
     meme.lines[line].size += 0.5;
     
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
 
 
     renderCanvas();
@@ -146,7 +146,7 @@ function addNewTextLineEventListener (){
     
     document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
     document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
     }
   }) 
@@ -173,7 +173,7 @@ function addDeleteTextLineEventListener (){
     if (meme.lines && meme.lines.length > 0) {
       document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine+1}`;
       document.getElementById('meme-text').value = (meme.lines[currLine].txt === '')? '': meme.lines[currLine].txt;
-      document.getElementById("meme-text").focus();
+      // document.getElementById("meme-text").focus();
     } else{
       let elDisableController = document.querySelectorAll('.controller');
       elDisableController.forEach(disableController =>{
@@ -198,7 +198,7 @@ function addTextDecreaseFontSizeEventListener (){
     let currLine = meme.selectedLineIdx;
 
     meme.lines[currLine].size -= 0.5;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -212,7 +212,7 @@ function addTextAlignLeftEventListener(){
 
     meme.lines[line].align = 'left';
 
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
 
     renderCanvas();
   })
@@ -227,7 +227,7 @@ function addTextAlignRightEventListener(){
 
     meme.lines[line].align = 'right';
 
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -241,7 +241,7 @@ function addTextAlignCenterEventListener(){
 
     meme.lines[line].align = 'center';
 
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
     renderCanvas();
   })
 }
@@ -254,7 +254,7 @@ function addStrokeColorEventListener(){
     let line = meme.selectedLineIdx;
     
     meme.lines[line].strokeColor = elStrokeColorInput.value;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
 
     renderCanvas();
   })
@@ -268,7 +268,7 @@ function addFillColorEventListener(){
     let line = meme.selectedLineIdx;
 
     meme.lines[line].fillColor = elFillColorInput.value;
-    document.getElementById("meme-text").focus();
+    // document.getElementById("meme-text").focus();
 
     renderCanvas();
   })
