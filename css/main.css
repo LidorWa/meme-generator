@@ -45,8 +45,6 @@ body{
     flex-direction: column;
     width: 90vw;
     margin: auto;
-    /* height: 80vh; */
-    
 }
 
 .add-flex{
@@ -57,7 +55,6 @@ canvas{
     display: block;
     margin: auto;
     width: 85vw;
-    /* height: 50vh; */
     margin-bottom: 1em;
 
 }
@@ -70,8 +67,16 @@ canvas{
     margin: 0.2em;
 }
 
-.controller button{
+.controller {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
     border-radius: 15px;
+}
+.controller img{
+
+    border-radius: 12px;
 }
 
 .controller-box a, a:hover, a:visited, a:active {
@@ -131,7 +136,7 @@ canvas{
     cursor: pointer;
 }
 
-@media (min-width: 555px){
+@media (min-width: 535px){
     .logo-container{
         justify-self: flex-start;
     }

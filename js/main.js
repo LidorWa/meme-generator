@@ -33,8 +33,15 @@ function addBackToGalleryLinkEventListener(){
     elGalleryLink.addEventListener('click',()=>{
       elCanvasContainer.style.display = 'none';
       elGalleryContainer.style.display = 'block';
+      clearCanvas ();
+      resetMeme();
+      document.getElementById('meme-text').value = '';
     })
   }
+
+function clearCanvas (){
+  gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+}
   
   function addBackToGalleryLogoLinkEventListener(){
     let elGalleryLink = document.querySelector('.logo');
@@ -44,5 +51,8 @@ function addBackToGalleryLinkEventListener(){
     elGalleryLink.addEventListener('click',()=>{
       elCanvasContainer.style.display = 'none';
       elGalleryContainer.style.display = 'block';
+      clearCanvas ();
+      resetMeme();
+      document.getElementById('meme-text').value = '';
     })
   }

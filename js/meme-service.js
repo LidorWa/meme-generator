@@ -10,7 +10,7 @@ let gMeme = {
     lines: [
         {
             txt: '',
-            size: 16,
+            size: 24,
             align: 'left',
             fillColor: 'white',
             strokeColor: 'black',
@@ -19,7 +19,7 @@ let gMeme = {
             posY: 20
         },         {
           txt: '',
-          size: 16,
+          size: 24,
           align: 'left',
           fillColor: 'white',
           strokeColor: 'black',
@@ -60,6 +60,21 @@ function getMemeFromService(){
     }
 
     gMeme.lines.splice(currLine, 1);
+  }
+
+  function resetMeme(){
+    if (gMeme.lines.length > 2)  gMeme.splice (2)
+
+    gMeme.lines.forEach((line,idx) => {
+      line.txt = '';
+      line.size = 24;
+      line.align = 'left';
+      line.fillColor = 'white';
+      line.strokeColor = 'black';
+      line.font = 'IMPACT';
+      line. posX = 1;
+      line.posY =  (idx === 1)? 280: 20; 
+    })
   }
 
   function createSavedMemes(){

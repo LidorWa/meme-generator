@@ -2,8 +2,10 @@
 
 // will handle the meme's section DOM
 
+let gIsDownloadOrShare = false;
 
 
+// functions handling the canvas appearance
 
 function renderCanvas() {
   let meme = getMemeFromService();
@@ -16,6 +18,37 @@ function renderCanvas() {
   gCtx.drawImage(image, 0, 0, gCanvas.width, gCanvas.height);
 
   drawText();
+}
+
+function drawText() {
+  let meme = getMemeFromService();
+
+  meme.lines.forEach((line, idx) => {
+    let linePos = getTextPosition(line);
+
+    if (!gIsDownloadOrShare) drawRectBorderForText(line, idx);
+    gCtx.lineWidth = 0.5;
+    gCtx.font = `${line.size}px ${line.font}`;
+
+
+    gCtx.fillStyle = line.fillColor;
+    gCtx.fillText(line.txt, linePos.x, linePos.y);
+
+    gCtx.strokeStyle = line.strokeColor;
+    gCtx.strokeText(line.txt, linePos.x, linePos.y);
+  })
+}
+
+
+function drawRectBorderForText(line, idx) {
+  let meme = getMemeFromService();
+
+  if (meme.selectedLineIdx === idx) gCtx.strokeStyle = 'red';
+  else gCtx.strokeStyle = 'white';
+
+  gCtx.setLineDash([10, 5]);
+  gCtx.strokeRect(0, line.posY - line.size, gCanvas.width, line.size + 4);
+  gCtx.setLineDash([]);
 }
 
 function getTextPosition(line) {
@@ -41,33 +74,11 @@ function getTextPosition(line) {
   return position;
 }
 
-function drawText() {
-  let meme = getMemeFromService();
+// functions handling adding eventlisteners:
 
-  meme.lines.forEach(line => {
-    let linePos = getTextPosition(line);
+// writing to the canvas
 
-    drawRectBorderForText(line);
-    gCtx.lineWidth = 0.5;
-    gCtx.font = `${line.size}px ${line.font}`;
-
-
-    gCtx.fillStyle = line.fillColor;
-    gCtx.fillText(line.txt, linePos.x, linePos.y);
-
-    gCtx.strokeStyle = line.strokeColor;
-    gCtx.strokeText(line.txt, linePos.x, linePos.y);
-  })
-}
-
-function drawRectBorderForText(line) {
-  gCtx.strokeStyle = 'white';
-  gCtx.setLineDash([2, 3]);
-  gCtx.strokeRect(0, line.posY - line.size, gCanvas.width, line.size + 4);
-  gCtx.setLineDash([]);
-}
-
-function addTextTypeEventListener() {
+function addTypeOnInputEventListener() {
   let elTextInput = document.getElementById('meme-text');
 
   elTextInput.addEventListener('input', (event) => {
@@ -79,6 +90,8 @@ function addTextTypeEventListener() {
   });
 }
 
+// changing the text line height up and down
+
 function addTextLineDownEventListener() {
   let elLineDownBtn = document.getElementById('move-line-down');
 
@@ -87,10 +100,12 @@ function addTextLineDownEventListener() {
     let line = meme.selectedLineIdx;
 
     meme.lines[line].posY += 2;
-    // document.getElementById("meme-text").focus();
+
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
+
 
 function addTextLineUpEventListener() {
   let elLineUpBtn = document.getElementById('move-line-up');
@@ -100,10 +115,12 @@ function addTextLineUpEventListener() {
     let line = meme.selectedLineIdx;
 
     meme.lines[line].posY -= 2;
-    // document.getElementById("meme-text").focus();
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
+
+// increasing and decreasing font size
 
 function addTextIncreaseFontSizeEventListener() {
   let elIncreaseBtn = document.getElementById('increase-font-size');
@@ -114,12 +131,27 @@ function addTextIncreaseFontSizeEventListener() {
 
     meme.lines[line].size += 0.5;
 
-    // document.getElementById("meme-text").focus();
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
 
 
     renderCanvas();
   });
 }
+
+function addTextDecreaseFontSizeEventListener() {
+  let elIncreaseBtn = document.getElementById('decrease-font-size');
+
+  elIncreaseBtn.addEventListener('click', () => {
+    let meme = getMemeFromService();
+    let currLine = meme.selectedLineIdx;
+
+    meme.lines[currLine].size -= 0.5;
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
+    renderCanvas();
+  });
+}
+
+// adding and deleting lines
 
 function addNewTextLineEventListener() {
   let elNewLineBtn = document.getElementById('add-text-line');
@@ -146,7 +178,7 @@ function addNewTextLineEventListener() {
 
       document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine + 1}`;
       document.getElementById('meme-text').value = (meme.lines[currLine].txt === '') ? '' : meme.lines[currLine].txt;
-      // document.getElementById("meme-text").focus();
+      if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
       renderCanvas();
     }
   })
@@ -180,7 +212,7 @@ function addDeleteTextLineEventListener() {
         if (disableController.id !== 'add-text-line') disableController.disabled = 'true';
       })
     }
-
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   })
 }
@@ -189,19 +221,7 @@ function onDeleteLines(currLine) {
   deleteLines(currLine);
 }
 
-
-function addTextDecreaseFontSizeEventListener() {
-  let elIncreaseBtn = document.getElementById('decrease-font-size');
-
-  elIncreaseBtn.addEventListener('click', () => {
-    let meme = getMemeFromService();
-    let currLine = meme.selectedLineIdx;
-
-    meme.lines[currLine].size -= 0.5;
-    // document.getElementById("meme-text").focus();
-    renderCanvas();
-  });
-}
+// changing text alignment
 
 function addTextAlignLeftEventListener() {
   let elAlignLeftBtn = document.getElementById('align-text-left');
@@ -212,7 +232,7 @@ function addTextAlignLeftEventListener() {
 
     meme.lines[line].align = 'left';
 
-    // document.getElementById("meme-text").focus();
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
 
     renderCanvas();
   })
@@ -227,7 +247,7 @@ function addTextAlignRightEventListener() {
 
     meme.lines[line].align = 'right';
 
-    // document.getElementById("meme-text").focus();
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   });
 }
@@ -241,10 +261,12 @@ function addTextAlignCenterEventListener() {
 
     meme.lines[line].align = 'center';
 
-    // document.getElementById("meme-text").focus();
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   })
 }
+
+// changing text color (stroke and fill)
 
 function addStrokeColorEventListener() {
   let elStrokeColorInput = document.querySelector('.stroke-color');
@@ -254,8 +276,8 @@ function addStrokeColorEventListener() {
     let line = meme.selectedLineIdx;
 
     meme.lines[line].strokeColor = elStrokeColorInput.value;
-    // document.getElementById("meme-text").focus();
 
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   })
 }
@@ -268,12 +290,13 @@ function addFillColorEventListener() {
     let line = meme.selectedLineIdx;
 
     meme.lines[line].fillColor = elFillColorInput.value;
-    // document.getElementById("meme-text").focus();
 
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
   })
 }
 
+// switching text line
 
 function addSwitchTextLineEventListener() {
 
@@ -286,11 +309,20 @@ function addSwitchTextLineEventListener() {
 
     document.getElementsByName('meme-text')[0].placeholder = `Text line ${currLine + 1}`;
     document.getElementById('meme-text').value = (meme.lines[currLine].txt === '') ? '' : meme.lines[currLine].txt;
-    document.getElementById("meme-text").focus();
+
+    if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
+    renderCanvas();
 
   })
-
 }
+
+// checking is page width mobile or desktop (for the input focus - canceled on mobiles to prevent the virtual keyboard from popping every time)
+
+function checkisPageWidthDesktop() {
+  return (window.innerWidth >= 555) ? true : false;
+}
+
+// download / share functions
 
 function addDownloadCanvasEventListener() {
 
@@ -299,6 +331,10 @@ function addDownloadCanvasEventListener() {
   elDownloadBtn.addEventListener('click', () => {
     let meme = getMemeFromService();
     let memeId = meme.selectedImgId;
+    gIsDownloadOrShare = true;
+    renderCanvas();
+    gIsDownloadOrShare = false;
+
 
     let elDownloadBtnA = document.getElementById('download-canvas-a');
 
@@ -306,6 +342,7 @@ function addDownloadCanvasEventListener() {
 
     elDownloadBtnA.href = imgContent;
     elDownloadBtnA.download = `canvas-img-${memeId}.jpg`;
+    renderCanvas()
   })
 }
 
@@ -314,6 +351,9 @@ function addShareToFacebookEventListener() {
   let elShareFbBtn = document.getElementById('share-canvas-fb');
 
   elShareFbBtn.addEventListener('click', () => {
+    gIsDownloadOrShare = true;
+    renderCanvas();
+    gIsDownloadOrShare = false;
 
     let imgDataUrl = gCanvas.toDataURL("image/jpeg");
 
@@ -321,21 +361,24 @@ function addShareToFacebookEventListener() {
       let encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
 
       document.querySelector('.user-msg').innerText = `Your photo is available here:`
-      document.querySelector('.share-container').innerHTML = `
-      <a class="share-to-fb-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
-      target="_blank" onclick="() => onFacebookShareBtnClick(uploadedImgUrl)">
+      document.querySelector('.share-container').innerHTML = `<span onclick="onFacebookShareBtnClick('${uploadedImgUrl}')">
+      <a class="share-to-fb-btn"   href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" 
+      target="_blank">
          Share   
-      </a>`
+      </a></span>`
     }
 
     doShareImg(imgDataUrl, onSuccess);
+
   })
 }
 
 function onFacebookShareBtnClick(uploadedImgUrl) {
+  renderCanvas();
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`);
   document.querySelector('.user-msg').style.display = 'none'
   document.querySelector('.share-container').style.display = 'none';
+
   return false;
 }
 
@@ -386,13 +429,17 @@ function doShareImg(imgDataUrl, onSuccess) {
     })
 }
 
+// getting the meme from meme service
+
 function onGetImgFromGallery(memeId) {
   return getImgFromGallery(memeId);
 }
 
+// initializing the event listeners
+
 function addMemeEventListeners() {
   addImageClickEventLisetner();
-  addTextTypeEventListener();
+  addTypeOnInputEventListener();
   addTextIncreaseFontSizeEventListener();
   addTextDecreaseFontSizeEventListener();
   addTextAlignLeftEventListener();
@@ -415,4 +462,3 @@ function addMemeEventListeners() {
 
 
 
-// TODO: in mobile add a condtion window.innerWidth < mobile width not to do input focus 
