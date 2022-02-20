@@ -56,7 +56,7 @@ canvas{
     display: block;
     margin: auto;
     width: 85vw;
-    height: 50vh;
+    /* height: 50vh; */
     margin-bottom: 1em;
 
 }
