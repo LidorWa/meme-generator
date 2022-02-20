@@ -331,6 +331,7 @@ function addDownloadCanvasEventListener() {
   elDownloadBtn.addEventListener('click', () => {
     let meme = getMemeFromService();
     let memeId = meme.selectedImgId;
+    
     gIsDownloadOrShare = true;
     renderCanvas();
     gIsDownloadOrShare = false;

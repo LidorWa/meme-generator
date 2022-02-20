@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    margin: 0;
 }
 body{
     background: rgb(2,0,36);
@@ -23,13 +24,13 @@ body{
 .grid-container{
     display: grid;
     width: 100vw;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 2fr));
+    grid-template-columns: repeat(2, minmax(180px, 2fr));
     text-align: center;
     
 }
 
 .grid-container img{
-    width: 35vw;
+    width: 30vw;
     margin: 3px;
     border-radius: 15px;
 }
@@ -37,8 +38,6 @@ body{
 .grid-container img:hover{
     cursor: zoom-in;
 }
-
-
 
 .canvas-container{
     display: none;
@@ -54,28 +53,91 @@ body{
 canvas{
     display: block;
     margin: auto;
-    width: 85vw;
+    width: 70vw;    
     margin-bottom: 1em;
 
 }
 
 .controller-box{
-    text-align: center;
+    display: grid;
+    min-width: 21.875rem;
+    min-height: 18rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    margin: auto;
+    
+    grid-template-areas: 
+    ". controller-item1 controller-item1 controller-item1 ."
+
+    "controller-item2 controller-item3 controller-item4 controller-item5 controller-item6"
+
+    "controller-item7 controller-item8 controller-item9 controller-item10 controller-item11"
+
+    ". controller-item12 controller-item13 controller-item14 ."
+
+    "controller-item15 . . . controller-item16";
+
+}
+
+.controller-item1{
+    grid-area: controller-item1;
+}
+.controller-item2{
+    grid-area: controller-item2;
+}
+.controller-item3{
+    grid-area: controller-item3;
+}
+.controller-item4{
+    grid-area: controller-item4;
+}
+.controller-item5{
+    grid-area: controller-item5;
+}
+.controller-item6{
+    grid-area: controller-item6;
+}
+.controller-item7{
+    grid-area: controller-item7;
+}
+.controller-item8{
+    grid-area: controller-item8;
+}
+.controller-item9{
+    grid-area: controller-item9;
+}
+.controller-item10{
+    grid-area: controller-item10;
+}
+.controller-item11{
+    grid-area: controller-item11;
+}
+.controller-item12{
+    grid-area: controller-item12;
+}
+.controller-item13{
+    grid-area: controller-item13;
+}
+.controller-item14{
+    grid-area: controller-item14;
+}
+.controller-item15{
+    grid-area: controller-item15;
+}
+.controller-item16{
+    grid-area: controller-item16;
+}
+
+
+.controller-box div{
+    margin: auto;
 }
 
 .controller {
-    margin: 0.2em;
-}
-
-.controller {
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
     border-radius: 15px;
 }
-.controller img{
 
+.controller img{
     border-radius: 12px;
 }
 
@@ -83,9 +145,6 @@ canvas{
     color: inherit;
     text-decoration: none;
    }
-.desktop-btn {
-    display:none;
-}
 
 .share-to-fb-btn {
     background: #4267b2;
@@ -136,7 +195,50 @@ canvas{
     cursor: pointer;
 }
 
-@media (min-width: 535px){
+/*  */
+/* MEDIA QUERY TO TABLET */
+/*  */
+@media (min-width: 585px){
+
+.canvas-container{
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+     justify-content: center;
+
+    gap: 1em;  
+}
+.canvas-div{
+    margin: auto;
+
+}
+canvas {
+    width: 255px;
+    height: 300px;
+}
+
+.controller-box{
+    min-width: 18rem;
+}
+
+.grid-container img{
+    width: 22vw;
+    margin: 3px;
+    border-radius: 15px;
+}
+
+.grid-container{
+    /* width: 100vw; */
+    height: 85vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat (auto-fill);
+    column-gap: 4%;
+}
+}
+
+
+@media (min-width:780px)
+{
     .logo-container{
         justify-self: flex-start;
     }
@@ -150,7 +252,6 @@ canvas{
     .nav-container ul{
         display: flex;
         list-style: none;
-
     }
     
     .grid-container{
@@ -164,34 +265,27 @@ canvas{
         width: 80%;
     }
 
-    .desktop-btn{
-        display: inline-block;
-    }
-
     .search-image-bar{
         float: right;
         }
     .canvas-container{
-        
         flex-direction: row;
-        width: 100vw;
+        width: 60%;
         justify-content: center;
+        gap: 1em;
 
     }
     .controller-box{
+        min-width: none;
+        max-width: 24rem;
         align-self: center;
         justify-self: center;
-        height: 75vh;
-        
     }
     .canvas-div{
-        height: 75vh;
+        margin: auto;
     }
     canvas {
         width: 380px;
         height: 380px;
-   
     }
-
-
 }

@@ -1,118 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Meme Generator</title>
+  </head>
 
-<head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/main.css">
-        <title>Meme Generator</title>
-</head>
+  <body onload="init()">
+    <header class="header">
+      <div class="logo-container">
+        <img src="assets/images/LOGO.png" class="logo" />
+      </div>
+      <div class="nav-container">
+        <span class="hamburger-symbol">☰</span>
+        <ul>
+          <li class="back-to-gallery">Gallery</li>
+          <li>Memes</li>
+          <li>About</li>
+        </ul>
+      </div>
+    </header>
 
-<body onload="init()">
-        <header class="header">
-                <div class="logo-container"><img src="assets/images/LOGO.png" class="logo"></div>
-                <div class="nav-container">
-                        <span class="hamburger-symbol">☰</span>
-                        <ul>
-                                <li class="back-to-gallery">Gallery</li>
-                                <li>Memes</li>
-                                <li>About</li>
-                        </ul>
-                </div>
-        </header>
-        
-        <section class="canvas-container">
-                <div class="canvas-div"><canvas id="meme-canvas" height="300px" width="300px">
-                                My HTML5 canvas tag doesn't support your primitive $55 browser
-                        </canvas></div>
+    <section class="canvas-container">
+      <div class="canvas-div">
+        <canvas id="meme-canvas" height="300px" width="300px">
+          My HTML5 canvas tag doesn't support your primitive $55 browser
+        </canvas>
+      </div>
 
+      <div class="controller-box">
+        <div div class="controller-item1">
+          <input
+            class="controller"
+            id="meme-text"
+            placeholder="Text line 1"
+            name="meme-text"
+          />
+        </div>
 
-                <div class="controller-box">
-                        <input class="controller" id="meme-text" placeholder="Text line 1" name="meme-text"><br>
+        <div class="controller-item2">
+          <button
+            class="move-line-down controller"
+            id="move-line-down"
+            title="Move line down!"
+          >
+            <img src="assets/controller-symbols/down-double/linedown.png" />
+          </button>
+        </div>
 
-                        <button class="move-line-down desktop-btn controller" id="move-line-down" title="Move line down!">
-                                <img src="assets/controller-symbols/down-double/linedown.png"></button>
+        <div div class="controller-item3">
+          <button
+            class="move-line-up controller"
+            id="move-line-up"
+            title="Move line up!"
+          >
+            <img src="assets/controller-symbols/up-double/lineup.png" />
+          </button>
+        </div>
 
-                        <button class="move-line-up desktop-btn controller" id="move-line-up" title="Move line up!">
-                                <img src="assets/controller-symbols/up-double/lineup.png"></button>
+        <div class="controller-item4">
+          <button
+            class="controller"
+            id="switch-text-line"
+            title="Switch between lines!"
+          >
+            <img src="assets/controller-symbols/up-and-down/up-down.jpg" />
+          </button>
+        </div>
 
-                        <button class="controller" id="switch-text-line" title="Switch between lines!">
-                                <img src="assets/controller-symbols/up-and-down/up-down.jpg"></button>
+        <div class="controller-item5">
+          <button class="controller" id="add-text-line" title="Add text line!">
+            <img src="assets/controller-symbols/add/add.jpg" />
+          </button>
+        </div>
 
-                        <button class="controller" id="add-text-line" title="Add text line!"><img
-                                        src="assets/controller-symbols/add/add.jpg"></button>
+        <div class="controller-item6">
+          <button
+            class="controller"
+            id="delete-text-line"
+            title="Delete text line!"
+          >
+            <img src="assets/controller-symbols/trash/trash.jpg" />
+          </button>
+        </div>
 
-                        <button class="controller" id="delete-text-line" title="Delete text line!"><img
-                                        src="assets/controller-symbols/trash/trash.jpg"></button><br>
+        <div class="controller-item7">
+          <button
+            class="controller"
+            id="increase-font-size"
+            title="Increase font size!"
+          >
+            <img
+              src="assets/controller-symbols/increase-font/increase font - icon.jpg"
+            />
+          </button>
+        </div>
 
-                        <button class="controller" id="increase-font-size" title="Increase font size!"><img
-                                        src="assets/controller-symbols/increase-font/increase font - icon.jpg"></button>
+        <div class="controller-item8">
+          <button
+            class="controller"
+            id="decrease-font-size"
+            title="Decrease font size!"
+          >
+            <img
+              src="assets/controller-symbols//decrease-font/decrease font - icon.jpg"
+            />
+          </button>
+        </div>
 
-                        <button class="controller" id="decrease-font-size" title="Decrease font size!"><img
-                                        src="assets/controller-symbols//decrease-font/decrease font - icon.jpg"></button>
+        <div class="controller-item9">
+          <button
+            class="controller"
+            id="align-text-left"
+            title="Align text left!"
+          >
+            <img
+              src="assets/controller-symbols/align-to-left/align-to-left.jpg"
+            />
+          </button>
+        </div>
 
-                        <button class="controller" id="align-text-left" title="Align text left!"><img
-                                        src="assets/controller-symbols/align-to-left/align-to-left.jpg"></button>
+        <div class="controller-item10">
+          <button
+            class="controller"
+            id="align-text-center"
+            title="Align text center!"
+          >
+            <img
+              src="assets/controller-symbols/align-to-center/center-text-alignment.jpg"
+            />
+          </button>
+        </div>
 
-                        <button class="controller" id="align-text-center" title="Align text center!"><img
-                                        src="assets/controller-symbols/align-to-center/center-text-alignment.jpg"></button>
+        <div class="controller-item11">
+          <button
+            class="controller"
+            id="align-text-right"
+            title="Align text right!"
+          >
+            <img
+              src="assets/controller-symbols/align-to-right/align-to-right.jpg"
+            />
+          </button>
+        </div>
 
-                        <button class="controller" id="align-text-right" title="Align text right!"><img
-                                        src="assets/controller-symbols/align-to-right/align-to-right.jpg"></button><br>
+        <div class="controller-item12">
+          <button
+            class="controller"
+            id="change-font-family"
+            title="Change font!"
+            disabled
+          >
+            IMPACT
+          </button>
+        </div>
 
-                        <button class="controller" id="change-font-family" title="Change font!">IMPACT</button>
+        <div class="controller-item13">
+          <div class="fill-and-stroke-div">
+            <button class="controller" id="change-stroke-color">
+              <img
+                src="assets/controller-symbols/stroke-color/stroke-color.png"
+              />
+            </button>
+            <input
+              class="fill-and-stroke-input stroke-color controller"
+              type="color"
+              value="#ff0000"
+              title="Change text border color!"
+            />
+          </div>
+        </div>
+        <div class="controller-item14">
+          <div class="fill-and-stroke-div">
+            <button class="controller" id="change-fill-color">
+              <img
+                src="assets/controller-symbols/brush/paint-board-and-brush.jpg"
+              />
+            </button>
+            <input
+              class="fill-and-stroke-input fill-color controller"
+              type="color"
+              value="#ff0000"
+              title="Change text color!"
+            />
+          </div>
+        </div>
 
-                        <div class="fill-and-stroke-div">
-                                <button class="controller" id="change-stroke-color"><img src="assets/controller-symbols/stroke-color/stroke-color.png"></button>
-                                <input class="fill-and-stroke-input stroke-color controller" type="color" value="#ff0000"
-                                        title="Change text border color!" />
-                        </div>
-                        <div class="fill-and-stroke-div">
-                                <button class="controller" id="change-fill-color"><img
-                                                src="assets/controller-symbols/brush/paint-board-and-brush.jpg"></button>
-                                <input class="fill-and-stroke-input fill-color controller" type="color" value="#ff0000"
-                                        title="Change text color!" />
-                        </div><br>
+        <div class="controller-item15">
+          <button
+            class="controller download-canvas"
+            id="download-canvas"
+            title="Download meme to your platform!"
+          >
+            <a href="#" id="download-canvas-a" class="download-canvas-a">
+              <img src="assets/controller-symbols/download/download.png"></a
+            >
+          </button>
+        </div>
 
-                        <!-- stickers! -->
-                        <button class="controller" id="download-canvas" title="Download meme to your platform!">
-                                <a href="#" id="download-canvas-a" class="download-canvas-a"> Download meme!</a></button>
-
-                                Share:<button class="controller" id="share-canvas-fb" title="Share to facebook!">
-                                 <img src="assets/controller-symbols/facebook-logo/fb-logo.png"></button>
-                                 <!-- <button class="controller" id="share-canvas-whatsapp" title="Share to Whatsapp!">
+        <div class="controller-item16">
+          Share:<button
+            class="controller"
+            id="share-canvas-fb"
+            title="Share to facebook!"
+          >
+            <img src="assets/controller-symbols/facebook-logo/fb-logo.png" />
+          </button>
+        </div>
+        <!-- <button class="controller" id="share-canvas-whatsapp" title="Share to Whatsapp!">
                                         <img src="assets/controller-symbols/whatsapp-logo/whatsapp-logo.png"></button> -->
 
-                                <p class="user-msg"></p>
-                                <div class="share-container"></div>
+        <p class="user-msg"></p>
+        <div class="share-container"></div>
+      </div>
+    </section>
 
-                </div>
-        </section>
-        <section class="search-image-bar">
-                <label for="filter-gallery">Search an image for meme:</label>
-                <input list="filter-gallery" id="filter-gallery" name="filter-gallery" />
+    <section class="gallery-page">
+      <section class="grid-container"></section>
+    </section>
 
-                <datalist id="search-gallery">
-
-                </datalist>
-        </section>
-        <section class="gallery-page">
-
-                <section class="grid-container">
-                </section>
-        </section>
-
-        <script src="js/utils.js"></script>
-        <script src="js/gallery-service.js"></script>
-        <script src="js/gallery-controller.js"></script>
-        <script src="js/meme-service.js"></script>
-        <script src="js/meme-controller.js"></script>
-        <script src="js/storage-service.js"></script>
-        <script src="js/main.js"></script>
-</body>
-
+    <script src="js/utils.js"></script>
+    <script src="js/gallery-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/storage-service.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
-
-
-
