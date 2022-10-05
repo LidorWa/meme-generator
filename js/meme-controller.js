@@ -98,7 +98,7 @@ function addTextLineDownEventListener() {
   elLineDownBtn.addEventListener('click', () => {
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
-
+    if (meme.lines[line].posY >= 296) return;
     meme.lines[line].posY += 2;
 
     if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
@@ -114,6 +114,8 @@ function addTextLineUpEventListener() {
     let meme = getMemeFromService();
     let line = meme.selectedLineIdx;
 
+    if (meme.lines[line].posY <= 20) return;
+    
     meme.lines[line].posY -= 2;
     if (checkisPageWidthDesktop()) document.getElementById("meme-text").focus();
     renderCanvas();
